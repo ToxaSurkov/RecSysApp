@@ -1,0 +1,88 @@
+.noti_err {
+    color: var(--color-accent);
+}
+.noti_true {
+    color: #006900;
+}
+
+div.app-flex-container {
+    display: flex;
+    gap: 6px;
+}
+
+button.auth {
+    display: flex;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border: var(--button-border-width) solid var(--button-primary-border-color);
+    background: var(--button-primary-background-fill);
+    color: var(--button-primary-text-color);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+button.auth[disabled],
+button.send_message[disabled] > img {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+button.auth:hover:not([disabled]) {
+    border-color: var(--button-primary-border-color-hover);
+    background: var(--button-primary-background-fill-hover);
+    color: var(--button-primary-text-color-hover);
+}
+
+button.auth:active:not([disabled]) {
+    transform: scale(0.98);
+}
+
+button.send_message {
+    display: contents;
+}
+
+button.send_message > img {
+    width: 36px;
+    height: 36px;
+    transition: all 0.3s ease;
+}
+
+div.avatar-container {
+    justify-content: center;
+    align-items: center;
+}
+
+div.subject-info {
+    padding: 10px;
+}
+
+div.subject-info > div.info {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+    border-bottom-width: 1px;
+    border-bottom-color: var(--border-color-primary);
+}
+
+div.subject-info > div.info:last-child {
+    border-bottom-width: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+div.subject-info > div.info > div.info-item:last-child {
+    border-bottom: none;
+}
+
+div.subject-info > div.info > div.info-item > span.label {
+    font-weight: bold;
+}
+
+div.subject-info > div.info > div.info-item > span.label, 
+div.subject-info > div.info > div.info-item > span.value {
+    padding-left: 5px;
+    padding-right: 5px;
+}
