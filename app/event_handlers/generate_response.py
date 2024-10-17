@@ -26,35 +26,53 @@ from app.data_utils import get_embeddings, filter_unique_items, sort_subjects
 
 def generate_subject_info(subject_info: list[str]) -> str:
     edu_level = (
-        "<div class='info-item'><span class='label'>Уровни обучения:</span> <span class='value'>"
-        + "Бакалавриат, Специалитет, Магистратура, Аспирантура"
+        "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_LEVELS_EDUCATION_LABEL
+        + "</span> <span class='value'>"
+        + config_data.EducationLevels_ALL_LEVELS
         + "</span></div>"
         if not subject_info[6]
         or subject_info[6]
         in [
             config_data.Settings_PRIORITY[-1],
             config_data.Settings_PRIORITY[-2],
-            "None",
+            config_data.EducationLevels_NONE_LEVELS,
         ]
-        else "<div class='info-item'><span class='label'>Уровень обучения:</span> <span class='value'>"
+        else "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_LEVEL_EDUCATION_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[6]}</span></div>"
     )
 
     subject_block = (
-        "<div class='info-item'><span class='label'>Дисциплина:</span> <span class='value'>"
+        "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_SUBJECT_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[1]}</span></div>"
-        "<div class='info-item'><span class='label'>ID дисциплины:</span> <span class='value'>"
+        "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_ID_SUBJECT_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[0]}</span></div>"
-        "<div class='info-item'><span class='label'>Кафедра:</span> <span class='value'>"
+        "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_DEPARTMENT_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[5]}</span></div>"
-        "<div class='info-item'><span class='label'>Факультет кафедры:</span> <span class='value'>"
+        "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_FACULTY_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[4]}</span></div>"
-        "<div class='info-item'><span class='label'>Кампус:</span> <span class='value'>"
+        "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_CAMPUS_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[3]}</span></div>"
         + edu_level
-        + "<div class='info-item'><span class='label'>Охват аудитории:</span> <span class='value'>"
+        + "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_AUDIENCE_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[8]}</span></div>"
-        "<div class='info-item'><span class='label'>Формат изучения:</span> <span class='value'>"
+        "<div class='info-item'><span class='label'>"
+        + config_data.HtmlContent_FORMAT_LABEL
+        + "</span> <span class='value'>"
         + f"{subject_info[9]}</span></div>"
     )
 
@@ -65,7 +83,7 @@ def generate_skills(subject_id: str) -> str:
     try:
         subject_skills = (
             df_puds_skills.filter(
-                pl.col("ID дисциплины БУП ППК (АСАВ)") == int(subject_id)
+                pl.col(config_data.DataframeHeaders_RU_ID) == int(subject_id)
             )[0]["LLM_Skills"][0]
             .strip()
             .split(";")
@@ -85,12 +103,18 @@ def generate_skills(subject_id: str) -> str:
             [f"<span class='skill'>{skill}</span>" for skill in skills]
         )
         return (
-            "<div class='info-skills'><span class='label'>Получаемые навыки:</span> <span class='value'>"
+            "<div class='info-skills'><span class='label'>"
+            + config_data.HtmlContent_SKILLS_LABEL
+            + "</span> <span class='value'>"
             + f"{skills_content}</span></div>"
         )
 
     except Exception:
-        return "<div class='info-skills-error'><span class='label'>Навыки не определены</span></div>"
+        return (
+            "<div class='info-skills-error'><span class='label'>"
+            + config_data.InformationMessages_SKILLS_NOT_DEFINED
+            + "</span></div>"
+        )
 
 
 def event_handler_generate_response(
@@ -130,12 +154,14 @@ def event_handler_generate_response(
 
         if match:
             formatted_subject = (
-                f"{match.get('ID дисциплины БУП ППК (АСАВ)', '-')} | {subject} | CS={similarity:.4f} | "
-                f"{match.get('Кампус кафедры, предлагающей дисциплину', '-')} | "
-                + f"{match.get('Факультет кафедры, предлагающей дисциплину', '-')} | "
-                f"{match.get('Кафедра, предлагающая дисциплину', '-')} | {match.get('Уровень обучения', '-')} | "
-                f"{match.get('Период изучения дисциплины', '-')} | {match.get('Охват аудитории', '-')} | "
-                f"{match.get('Формат изучения', '-')}"
+                f"{match.get(config_data.DataframeHeaders_RU_ID, "-")} | {subject} | CS={similarity:.4f} | "
+                f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[2], "-")} | "
+                + f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[1], "-")} | "
+                f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[3], "-")} | "
+                + f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[4], "-")} | "
+                f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[5], "-")} | "
+                + f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[6], "-")} | "
+                f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[7], "-")}"
             )
         else:
             formatted_subject = f"- | {subject} | CS={similarity:.4f}"
