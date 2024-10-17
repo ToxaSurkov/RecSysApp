@@ -11,6 +11,7 @@ import gradio as gr
 from app.description import DESCRIPTION
 from app.description_steps import STEP_1, STEP_2
 from app.config import config_data
+from app.requirements_app import read_requirements
 from app.components import html_message
 
 
@@ -172,6 +173,10 @@ def app_tab():
     )
 
 
+def settings_app_tab():
+    pass
+
+
 def about_app_tab():
     pass
 
@@ -181,4 +186,13 @@ def about_authors_tab():
 
 
 def requirements_app_tab():
-    pass
+    reqs = read_requirements()
+
+    return gr.Dataframe(
+        headers=reqs.columns,
+        value=reqs,
+        datatype=["markdown"] * len(reqs.columns),
+        visible=True,
+        elem_classes="requirements-dataframe",
+        type="polars",
+    )
