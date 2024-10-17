@@ -102,3 +102,8 @@ PRIORITY = [
 SBERT = [
     "paraphrase-multilingual-MiniLM-L12-v2"
 ]
+
+[Requirements]
+LIBRARY = "Библиотека"
+RECOMMENDED_VERSION = "Рекомендованная версия"
+CURRENT_VERSION = "Текущая версия"

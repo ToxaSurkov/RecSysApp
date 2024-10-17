@@ -8,6 +8,7 @@ License: MIT License
 import polars as pl
 
 # Importing necessary components for the Gradio app
+from app.config import config_data
 
 
 def read_requirements(file_path="requirements.txt"):
@@ -23,9 +24,9 @@ def read_requirements(file_path="requirements.txt"):
 
     data = [
         {
-            "Библиотека": split_line[0],
-            "Рекомендованная версия": split_line[1],
-            "Текущая версия": pypi(split_line[0]),
+            config_data.Requirements_LIBRARY: split_line[0],
+            config_data.Requirements_RECOMMENDED_VERSION: split_line[1],
+            config_data.Requirements_CURRENT_VERSION: pypi(split_line[0]),
         }
         for line in lines
         if (split_line := line.strip().split("==")) and len(split_line) == 2
