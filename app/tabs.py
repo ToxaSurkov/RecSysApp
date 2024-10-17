@@ -13,12 +13,6 @@ from app.description_steps import STEP_1, STEP_2
 from app.config import config_data
 from app.components import html_message
 
-# from app.data_init import elapsed_time, df_puds_cleaned
-
-# print(f"Количество строк: {df_puds_cleaned.shape[0]}")
-# print(df_puds_cleaned[0][0].to_dict())
-# print(f"Время выполнения: {elapsed_time:.6f} секунд")
-
 
 def app_tab():
     gr.Markdown(value=DESCRIPTION)
@@ -117,6 +111,7 @@ def app_tab():
         chatbot = gr.Chatbot(
             type="messages",
             label=config_data.Labels_CHATBOT,
+            autoscroll=False,
             visible=False,
             render=True,
             show_copy_button=True,

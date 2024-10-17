@@ -12,6 +12,7 @@ from pathlib import Path
 from typing import Union, Optional
 
 from sentence_transformers import SentenceTransformer
+from safetensors.torch import save_file, load_file
 
 # Importing necessary components for the Gradio app
 from app.gpu_init import device
@@ -22,34 +23,43 @@ def get_files(directory: Union[str, Path], ext: str = "parquet") -> list[Path]:
     def custom_sort_key(file_name: Path) -> tuple:
         name = file_name.stem
 
-        # Классификация: 1 для английских, 2 для русских, 3 для цифр
         match name:
-            case _ if re.match(r"^[A-Za-z]", name):  # Английские буквы
+            case _ if re.match(r"^[A-Za-z]", name):
                 return (1, name)
-            case _ if re.match(r"^[А-Яа-яЁё]", name):  # Русские буквы
+            case _ if re.match(r"^[А-Яа-яЁё]", name):
                 return (2, name)
-            case _ if re.match(r"^\d", name):  # Цифры
+            case _ if re.match(r"^\d", name):
                 return (3, name)
             case _:
-                return (4, name)  # Все остальные символы
+                return (4, name)
 
     path2files = Path(directory)
     files = list(path2files.rglob(f"*.{ext}"))
 
-    # Сортировка по кастомному ключу
     sorted_files = sorted(files, key=custom_sort_key)
 
     return sorted_files
 
 
+def load_parquet(
+    path: str, drop_duplicates: bool = False, subset: Optional[list[str]] = None
+) -> pl.DataFrame:
+    df = pl.read_parquet(Path(path))
+
+    if drop_duplicates and subset:
+        df = df.unique(subset=subset, keep="first", maintain_order=False)
+
+    return df
+
+
 def load_puds_data(
-    directory: str,
+    path: str,
     year: str,
     drop_duplicates: bool = False,
     subset: Optional[list[str]] = None,
     full_info_cols: Optional[list[str]] = None,
 ) -> tuple[pl.DataFrame, pl.DataFrame]:
-    df = pl.read_parquet(Path(directory))
+    df = pl.read_parquet(Path(path))
 
     alias_year = "year"
 
@@ -109,38 +119,72 @@ def extract_embeddings(
     d_puds_cleaned: list[dict],
     sbert_model: SentenceTransformer,
     limit: Optional[int] = None,
-) -> tuple[list, list]:
-    embeddings = []
-    names = []
+    force_reload: bool = False,
+) -> tuple[torch.Tensor, pl.DataFrame]:
+    embeddings_col = "embeddings"
+    names_col = "names"
+    subject_info_col = config_data.DataframeHeaders_SUBJECTS_FULL_INFO
+    subject_name_col = config_data.DataframeHeaders_RU_SUBJECTS[0]
 
-    items_to_process = d_puds_cleaned[:limit] if limit else d_puds_cleaned
+    embeddings_path = Path(config_data.StaticPaths_PUDS_EMBEDDINGS)
+    names_path = Path(config_data.StaticPaths_RU_SUBJECTS)
 
-    def process_item(item):
-        subject_name = item.get(config_data.DataframeHeaders_RU_SUBJECTS[0])
-        subject_full_info = item.get(config_data.DataframeHeaders_SUBJECTS_FULL_INFO)
+    def load_existing_data() -> tuple[torch.Tensor, pl.DataFrame]:
+        embeddings = load_file(embeddings_path)[embeddings_col]
+        names = pl.read_parquet(names_path)
 
-        if subject_full_info:
-            subject_embedding = get_embeddings(subject_full_info, sbert_model)
-            return subject_embedding, subject_name
+        return embeddings, names
+
+    def save_embeddings(embeddings: torch.Tensor, names: list[str]) -> None:
+        if embeddings.size(0) > 0:
+            save_file({embeddings_col: embeddings}, embeddings_path)
+        if names:
+            pl.DataFrame({names_col: names}).write_parquet(names_path)
+
+    def valid_cached_data(embeddings: torch.Tensor, names: pl.DataFrame) -> bool:
+        return embeddings.size(0) == names.shape[0] > 0
+
+    if not force_reload and embeddings_path.is_file() and names_path.is_file():
+        embeddings, names = load_existing_data()
+
+        if valid_cached_data(embeddings, names):
+            if limit:
+                return embeddings[:limit], names[:limit]
+
+            return embeddings, names
+
+    def process_item(item: dict) -> tuple[Optional[torch.Tensor], Optional[str]]:
+        subject_info = item.get(subject_info_col)
+        subject_name = item.get(subject_name_col)
+
+        if subject_info:
+            return get_embeddings(subject_info, sbert_model), subject_name
 
         return None, None
 
-    items = [process_item(item) for item in items_to_process]
+    processed_items = [
+        process_item(item)
+        for item in (d_puds_cleaned[:limit] if limit else d_puds_cleaned)
+    ]
 
-    for embedding, name in items:
-        if embedding is not None and name is not None:
-            embeddings.append(embedding)
-            names.append(name)
+    embeddings, names = zip(
+        *(
+            (embedding, name)
+            for embedding, name in processed_items
+            if embedding is not None and name is not None
+        )
+    )
 
-    if embeddings:
-        embeddings = torch.stack(embeddings)
-    else:
-        embeddings = torch.Tensor()
+    embeddings_tensor = torch.stack(embeddings) if embeddings else torch.Tensor()
 
-    return embeddings, names
+    save_embeddings(embeddings_tensor, list(names))
+
+    return embeddings_tensor, pl.DataFrame({names_col: list(names)})
 
 
-def filter_unique_items(sorted_items: list, top_n: int) -> list:
+def filter_unique_items(
+    sorted_items: list[tuple[str, float]], top_n: int
+) -> list[tuple[str, float]]:
     unique_items = []
     seen_items = set()
 
@@ -148,16 +192,8 @@ def filter_unique_items(sorted_items: list, top_n: int) -> list:
         if item not in seen_items:
             seen_items.add(item)
             unique_items.append((item, similarity))
-            if len(unique_items) >= top_n:
-                break
-
-    if len(unique_items) < top_n:
-        for item, similarity in sorted_items[len(unique_items) :]:
-            if item not in seen_items:
-                seen_items.add(item)
-                unique_items.append((item, similarity))
-                if len(unique_items) >= top_n:
-                    break
+        if len(unique_items) >= top_n:
+            break
 
     return unique_items
 
@@ -167,7 +203,7 @@ def extract_numbers(value):
     return [int(num) for num in numbers] if numbers else None
 
 
-def custom_sort_key(r):
+def custom_sort_key(r: str) -> tuple[int, float, float]:
     l = r.strip().split("|")
 
     category = l[6].strip() if len(l) > 6 else "nan"
@@ -178,14 +214,12 @@ def custom_sort_key(r):
 
     category_priority = edu_priority.get(category, edu_priority["nan"])
 
-    numbers = extract_numbers(l[7].strip()) if len(l) > 7 else None
-    if numbers is None:
-        first_module, last_module = float("inf"), float("inf")
-    else:
-        first_module = numbers[0]
-        last_module = numbers[-1]
+    numbers = extract_numbers(l[7].strip()) if len(l) > 7 else []
 
-    return (category_priority, first_module, last_module)
+    first_module = numbers[0] if numbers else float("inf")
+    last_module = numbers[-1] if numbers else float("inf")
+
+    return category_priority, first_module, last_module
 
 
 def sort_subjects(subjects):

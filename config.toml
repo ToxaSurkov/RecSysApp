@@ -35,8 +35,12 @@ CHATBOT = "Подбор предметов из ВШЭ для определен
 MODELS = "models/"
 IMAGES = "images/"
 PUDS = "data/ПУДы.parquet"
+PUDS_EMBEDDINGS = "data/ПУДы_эмбеддинги.safetensors"
+RU_SUBJECTS = "data/Названия_дисциплин_для_эмбеддингов.parquet"
+PUDS_SKILLS = "data/ПУДы_навыки.parquet"
 
 [DataframeHeaders]
+RU_ID = "ID дисциплины БУП ППК (АСАВ)"
 RU_SUBJECTS = [
     "Русскоязычное название дисциплины",
     "Факультет кафедры, предлагающей дисциплину",
@@ -56,8 +60,9 @@ DROPDOWN_USER = [
     "Преподаватель",
     "Представитель учебного офиса",
 ]
-USER_MAX_LENGTH = 10
-TOP_SUBJECTS = 5
+USER_MAX_LENGTH = 20
+TOP_SUBJECTS = 20
+MAX_SKILL_WORDS = 4
 PRIORITY = [
     "Бакалавриат",
     "Специалитет",
