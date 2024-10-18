@@ -79,7 +79,10 @@ def generate_subject_info(subject_info: list[str]) -> str:
     return subject_block
 
 
-def generate_skills(subject_id: str) -> str:
+def generate_skills(
+    subject_id: str,
+    max_skill_words: int,
+) -> str:
     try:
         subject_skills = (
             df_puds_skills.filter(
@@ -92,8 +95,7 @@ def generate_skills(subject_id: str) -> str:
         skills = [
             re.sub(r"[.,;:\s]+$", "", skill.strip()).capitalize()
             for skill in subject_skills
-            if len(skill.split(" ")) <= config_data.Settings_MAX_SKILL_WORDS
-            and skill.strip()
+            if len(skill.split()) <= max_skill_words and skill.strip()
         ]
 
         if not skills:
@@ -118,7 +120,10 @@ def generate_skills(subject_id: str) -> str:
 
 
 def event_handler_generate_response(
-    message: str, chat_history: list[ChatMessage]
+    message: str,
+    chat_history: list[ChatMessage],
+    top_subjects: int,
+    max_skill_words: int,
 ) -> tuple[gr.Textbox, list[ChatMessage]]:
     message = message.strip()
 
@@ -136,9 +141,7 @@ def event_handler_generate_response(
         ]
 
     sorted_subjects = sorted(similarities, key=lambda x: x[1], reverse=True)
-    unique_subjects = filter_unique_items(
-        sorted_subjects, config_data.Settings_TOP_SUBJECTS
-    )
+    unique_subjects = filter_unique_items(sorted_subjects, top_subjects)
 
     all_top_items = []
 
@@ -177,7 +180,7 @@ def event_handler_generate_response(
         + "".join(
             [
                 "<div class='info'>"
-                + f"{generate_subject_info(subject_info)}{generate_skills(subject_info[0])}"
+                + f"{generate_subject_info(subject_info)}{generate_skills(subject_info[0], max_skill_words)}"
                 + "</div>"
                 for subject in subjects_sorted.split(";")
                 if (subject_info := list(map(str.strip, subject.split("|"))))

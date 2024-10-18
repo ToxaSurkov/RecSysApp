@@ -14,6 +14,7 @@ NOTI_AUTH = [
     "Все персональные данные успешно запонены",
 ]
 SKILLS_NOT_DEFINED = "Навыки не определены"
+FROM_TO = "От {} до {}"
 
 [OtherMessages]
 IMPORTANT = "Обязательно"
@@ -25,6 +26,8 @@ SURNAME = "Фамилия"
 USERNAME = "Имя"
 USER_AFFILIATION = "Принадлежность"
 CHATBOT = "Подбор предметов из ВШЭ для определенной вакансии"
+TOP_SUBJECTS = "Количество предлагаемых предметов"
+MAX_SKILL_WORDS = "Максимальное количество слов в одном навыке"
 
 [EducationLevels]
 ALL_LEVELS = "Бакалавриат, Специалитет, Магистратура, Аспирантура"
@@ -85,7 +88,9 @@ DROPDOWN_USER = [
     "Представитель учебного офиса",
 ]
 USER_MAX_LENGTH = 20
+TOP_SUBJECTS_RANGE = [1, 40]
 TOP_SUBJECTS = 20
+MAX_SKILL_WORDS_RANGE = [1, 10]
 MAX_SKILL_WORDS = 4
 PRIORITY = [
     "Бакалавриат",

@@ -174,7 +174,49 @@ def app_tab():
 
 
 def settings_app_tab():
-    pass
+    with gr.Row(
+        visible=True,
+        render=True,
+        variant="default",
+        elem_classes="settings-container",
+    ):
+        top_subjects = gr.Number(
+            value=config_data.Settings_TOP_SUBJECTS,
+            label=config_data.Labels_TOP_SUBJECTS,
+            info=config_data.InformationMessages_FROM_TO.format(
+                config_data.Settings_TOP_SUBJECTS_RANGE[0],
+                config_data.Settings_TOP_SUBJECTS_RANGE[1],
+            ),
+            show_label=True,
+            container=True,
+            scale=1,
+            interactive=True,
+            visible=True,
+            render=True,
+            minimum=config_data.Settings_TOP_SUBJECTS_RANGE[0],
+            maximum=config_data.Settings_TOP_SUBJECTS_RANGE[1],
+            step=1,
+        )
+
+        max_skill_words = gr.Number(
+            value=config_data.Settings_MAX_SKILL_WORDS,
+            label=config_data.Labels_MAX_SKILL_WORDS,
+            info=config_data.InformationMessages_FROM_TO.format(
+                config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
+                config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
+            ),
+            show_label=True,
+            container=True,
+            scale=1,
+            interactive=True,
+            visible=True,
+            render=True,
+            minimum=config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
+            maximum=config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
+            step=1,
+        )
+
+    return (top_subjects, max_skill_words)
 
 
 def about_app_tab():

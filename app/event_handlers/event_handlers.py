@@ -26,6 +26,8 @@ def setup_app_event_handlers(
     message_row,
     message,
     send_message,
+    top_subjects,
+    max_skill_words,
 ):
     gr.on(
         triggers=[surname.change, username.change, dropdown_user.change],
@@ -67,7 +69,12 @@ def setup_app_event_handlers(
     gr.on(
         triggers=[message.submit, send_message.click],
         fn=event_handler_generate_response,
-        inputs=[message, chatbot],
+        inputs=[
+            message,
+            chatbot,
+            top_subjects,
+            max_skill_words,
+        ],
         outputs=[message, chatbot],
         queue=True,
     )

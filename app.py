@@ -37,7 +37,9 @@ def create_gradio_app() -> gr.Blocks:
                 app_instance = create_tab_function()
                 tab_results[tab_name] = app_instance
 
-        setup_app_event_handlers(*tab_results[list(tab_results.keys())[0]])
+        keys = list(tab_results.keys())
+
+        setup_app_event_handlers(*(tab_results[keys[0]] + tab_results[keys[1]]))
 
     return gradio_app
 
