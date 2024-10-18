@@ -216,7 +216,21 @@ def settings_app_tab():
             step=1,
         )
 
-    return (top_subjects, max_skill_words)
+        dropdown_models = gr.Dropdown(
+            choices=config_data.Models_SBERT,
+            value=config_data.Models_SBERT[0],
+            multiselect=False,
+            allow_custom_value=False,
+            label=config_data.Labels_MODEL,
+            info=config_data.InformationMessages_MODEL,
+            show_label=True,
+            interactive=True,
+            visible=True,
+            render=True,
+            elem_classes="dropdown-models",
+        )
+
+    return (top_subjects, max_skill_words, dropdown_models)
 
 
 def about_app_tab():

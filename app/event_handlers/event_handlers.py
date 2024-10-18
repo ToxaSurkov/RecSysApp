@@ -28,6 +28,7 @@ def setup_app_event_handlers(
     send_message,
     top_subjects,
     max_skill_words,
+    dropdown_models,
 ):
     gr.on(
         triggers=[surname.change, username.change, dropdown_user.change],
