@@ -16,16 +16,16 @@ from app.load_models import load_sbert_model
 cosine_similarity = torch.nn.CosineSimilarity()
 
 df_puds_cleaned, df_puds_grouped = load_puds_data(
-    path=config_data.StaticPaths_PUDS,
+    path=config_data.Path_APP / config_data.StaticPaths_PUDS,
     year=config_data.DataframeHeaders_SUBJECTS_YEAR,
     drop_duplicates=True,
-    subset=config_data.DataframeHeaders_RU_SUBJECTS,
+    subset=config_data.DataframeHeaders_RU_SUBJECTS[:2],
     full_info_cols=config_data.DataframeHeaders_SUBJECTS_FULL,
 )
 d_puds_cleaned = df_puds_cleaned.to_dicts()
 
 df_puds_skills = load_parquet(
-    path=config_data.StaticPaths_PUDS_SKILLS,
+    path=config_data.Path_APP / config_data.StaticPaths_PUDS_SKILLS,
     drop_duplicates=True,
     subset=config_data.DataframeHeaders_RU_ID,
 )

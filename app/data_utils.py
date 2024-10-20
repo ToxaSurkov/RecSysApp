@@ -8,7 +8,7 @@ License: MIT License
 import re
 import torch
 import polars as pl
-from pathlib import Path
+from pathlib import Path, PosixPath
 from typing import Union, Optional
 
 from sentence_transformers import SentenceTransformer
@@ -42,9 +42,9 @@ def get_files(directory: Union[str, Path], ext: str = "parquet") -> list[Path]:
 
 
 def load_parquet(
-    path: str, drop_duplicates: bool = False, subset: Optional[list[str]] = None
+    path: PosixPath, drop_duplicates: bool = False, subset: Optional[list[str]] = None
 ) -> pl.DataFrame:
-    df = pl.read_parquet(Path(path))
+    df = pl.read_parquet(path)
 
     if drop_duplicates and subset:
         df = df.unique(subset=subset, keep="first", maintain_order=False)
@@ -53,13 +53,13 @@ def load_parquet(
 
 
 def load_puds_data(
-    path: str,
+    path: PosixPath,
     year: str,
     drop_duplicates: bool = False,
     subset: Optional[list[str]] = None,
     full_info_cols: Optional[list[str]] = None,
 ) -> tuple[pl.DataFrame, pl.DataFrame]:
-    df = pl.read_parquet(Path(path))
+    df = pl.read_parquet(path)
 
     alias_year = "year"
 
@@ -110,7 +110,12 @@ def load_puds_data(
 
 def get_embeddings(text: str, sbert_model: SentenceTransformer) -> torch.Tensor:
     with torch.no_grad():
-        embeddings = sbert_model.encode(text, convert_to_tensor=True, device=device)
+        embeddings = sbert_model.encode(
+            text,
+            task=config_data.Models_TASK,
+            convert_to_tensor=True,
+            device=device,
+        )
 
     return embeddings
 
@@ -126,8 +131,18 @@ def extract_embeddings(
     subject_info_col = config_data.DataframeHeaders_SUBJECTS_FULL_INFO
     subject_name_col = config_data.DataframeHeaders_RU_SUBJECTS[0]
 
-    embeddings_path = Path(config_data.StaticPaths_PUDS_EMBEDDINGS)
-    names_path = Path(config_data.StaticPaths_RU_SUBJECTS)
+    embeddings_path = config_data.Path_APP / config_data.StaticPaths_PUDS_EMBEDDINGS
+    names_path = config_data.Path_APP / config_data.StaticPaths_RU_SUBJECTS
+
+    embeddings_path = (
+        embeddings_path.parent
+        / f"{embeddings_path.stem}_{config_data.Models_SBERT[0]}{embeddings_path.suffix}"
+    )
+
+    names_path = (
+        names_path.parent
+        / f"{names_path.stem}_{config_data.Models_SBERT[0]}{names_path.suffix}"
+    )
 
     def load_existing_data() -> tuple[torch.Tensor, pl.DataFrame]:
         embeddings = load_file(embeddings_path)[embeddings_col]
@@ -151,7 +166,7 @@ def extract_embeddings(
             if limit:
                 return embeddings[:limit], names[:limit]
 
-            return embeddings, names
+            return embeddings.to(sbert_model.device), names
 
     def process_item(item: dict) -> tuple[Optional[torch.Tensor], Optional[str]]:
         subject_info = item.get(subject_info_col)
@@ -175,7 +190,9 @@ def extract_embeddings(
         )
     )
 
-    embeddings_tensor = torch.stack(embeddings) if embeddings else torch.Tensor()
+    embeddings_tensor = (
+        torch.stack(embeddings).to(sbert_model.device) if embeddings else torch.Tensor()
+    )
 
     save_embeddings(embeddings_tensor, list(names))
 

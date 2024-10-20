@@ -90,7 +90,7 @@ def app_tab():
             value=config_data.OtherMessages_AUTH,
             interactive=False,
             scale=1,
-            icon=config_data.StaticPaths_IMAGES + "auth.ico",
+            icon=config_data.Path_APP / config_data.StaticPaths_IMAGES / "auth.ico",
             visible=True,
             elem_classes="auth",
         )
@@ -117,8 +117,8 @@ def app_tab():
             render=True,
             show_copy_button=True,
             avatar_images=(
-                config_data.StaticPaths_IMAGES + "user.svg",
-                config_data.StaticPaths_IMAGES + "HSE.svg",
+                config_data.Path_APP / config_data.StaticPaths_IMAGES / "user.svg",
+                config_data.Path_APP / config_data.StaticPaths_IMAGES / "HSE.svg",
             ),
             elem_classes="chatbot",
         )
@@ -153,7 +153,9 @@ def app_tab():
                 value="",
                 interactive=False,
                 scale=1,
-                icon=config_data.StaticPaths_IMAGES + "message.svg",
+                icon=config_data.Path_APP
+                / config_data.StaticPaths_IMAGES
+                / "message.svg",
                 visible=False,
                 elem_classes="send_message",
             )

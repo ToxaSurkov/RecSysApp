@@ -15,7 +15,7 @@ from app.event_handlers.event_handlers import setup_app_event_handlers
 import app.tabs
 
 
-gr.set_static_paths(paths=[config_data.StaticPaths_IMAGES])
+gr.set_static_paths(paths=[config_data.Path_APP / config_data.StaticPaths_IMAGES])
 
 
 def create_gradio_app() -> gr.Blocks:

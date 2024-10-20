@@ -55,8 +55,8 @@ SKILLS_LABEL = "Получаемые навыки:"
 "📋 Зависимости" = "requirements_app_tab"
 
 [StaticPaths]
-MODELS = "models/"
-IMAGES = "images/"
+MODELS = "models"
+IMAGES = "images"
 PUDS = "data/ПУДы.parquet"
 PUDS_EMBEDDINGS = "data/ПУДы_эмбеддинги.safetensors"
 RU_SUBJECTS = "data/Названия_дисциплин_для_эмбеддингов.parquet"
@@ -106,8 +106,10 @@ PRIORITY = [
 ]
 
 [Models]
+TASK = "text-matching"
 SBERT = [
-    "paraphrase-multilingual-MiniLM-L12-v2"
+    "paraphrase-multilingual-MiniLM-L12-v2",
+    "jina-embeddings-v3",
 ]
 
 [Requirements]

@@ -6,6 +6,7 @@ License: MIT License
 """
 
 import tomllib
+from pathlib import Path
 from collections.abc import Callable
 from types import SimpleNamespace
 
@@ -42,7 +43,11 @@ def load_config(file_path: str) -> SimpleNamespace:
 
     config_data = flatten_dict("", config)
 
-    return SimpleNamespace(**config_data)
+    config_namespace = SimpleNamespace(**config_data)
+
+    setattr(config_namespace, "Path_APP", Path(__file__).parent.parent.resolve())
+
+    return config_namespace
 
 
 config_data = load_config(CONFIG_NAME)
