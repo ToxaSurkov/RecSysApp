@@ -2,6 +2,9 @@
 APP_VERSION = "0.0.1"
 CSS_PATH = "app.css"
 
+[AppInfo]
+MODEL = "Модель для сопоставления вакансии с ПУДами изменена на {}"
+
 [InformationMessages]
 NOTI_IN_DEV = "В разработке"
 STEP_1 = "Шаг 1: Ввод персональных данных"

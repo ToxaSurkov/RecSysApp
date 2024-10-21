@@ -12,6 +12,7 @@ from app.event_handlers.auth import event_handler_auth
 from app.event_handlers.login import event_handler_login
 from app.event_handlers.generate_response import event_handler_generate_response
 from app.event_handlers.message import event_handler_message
+from app.event_handlers.settings import event_handler_dropdown_models
 
 
 def setup_app_event_handlers(
@@ -77,5 +78,12 @@ def setup_app_event_handlers(
             max_skill_words,
         ],
         outputs=[message, chatbot],
+        queue=True,
+    )
+
+    dropdown_models.change(
+        fn=event_handler_dropdown_models,
+        inputs=[message, dropdown_models],
+        outputs=[send_message],
         queue=True,
     )

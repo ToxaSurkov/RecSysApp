@@ -121,6 +121,7 @@ def get_embeddings(text: str, sbert_model: SentenceTransformer) -> torch.Tensor:
 
 
 def extract_embeddings(
+    model_name: str,
     d_puds_cleaned: list[dict],
     sbert_model: SentenceTransformer,
     limit: Optional[int] = None,
@@ -136,12 +137,11 @@ def extract_embeddings(
 
     embeddings_path = (
         embeddings_path.parent
-        / f"{embeddings_path.stem}_{config_data.Models_SBERT[0]}{embeddings_path.suffix}"
+        / f"{embeddings_path.stem}_{model_name}{embeddings_path.suffix}"
     )
 
     names_path = (
-        names_path.parent
-        / f"{names_path.stem}_{config_data.Models_SBERT[0]}{names_path.suffix}"
+        names_path.parent / f"{names_path.stem}_{model_name}{names_path.suffix}"
     )
 
     def load_existing_data() -> tuple[torch.Tensor, pl.DataFrame]:

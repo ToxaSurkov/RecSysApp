@@ -13,14 +13,7 @@ from gradio import ChatMessage
 
 # Importing necessary components for the Gradio app
 from app.config import config_data
-from app.data_init import (
-    cosine_similarity,
-    sbert_model,
-    puds_embeddings,
-    puds_names,
-    d_puds_cleaned,
-    df_puds_skills,
-)
+from app.data_init import cosine_similarity, df_puds_skills, model_manager_sbert
 from app.data_utils import get_embeddings, filter_unique_items, sort_subjects
 
 
@@ -130,14 +123,21 @@ def event_handler_generate_response(
     if not message:
         return (gr.Textbox(value=None), chat_history)
 
-    vacancy_embedding = get_embeddings(message, sbert_model)
+    vacancy_embedding = get_embeddings(message, model_manager_sbert.get_current_model())
 
     with torch.no_grad():
         similarities = (
-            cosine_similarity(vacancy_embedding, puds_embeddings).cpu().tolist()
+            cosine_similarity(
+                vacancy_embedding, model_manager_sbert.state.puds_embeddings
+            )
+            .cpu()
+            .tolist()
         )
         similarities = [
-            (i, j) for i, j in zip(puds_names["names"].to_list(), similarities)
+            (i, j)
+            for i, j in zip(
+                model_manager_sbert.state.puds_names["names"].to_list(), similarities
+            )
         ]
 
     sorted_subjects = sorted(similarities, key=lambda x: x[1], reverse=True)
@@ -149,7 +149,7 @@ def event_handler_generate_response(
         match = next(
             (
                 item
-                for item in d_puds_cleaned
+                for item in model_manager_sbert.get_puds_data()
                 if item.get(config_data.DataframeHeaders_RU_SUBJECTS[0]) == subject
             ),
             None,
