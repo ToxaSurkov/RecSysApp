@@ -68,7 +68,7 @@ def app_tab():
 
         dropdown_user = gr.Dropdown(
             choices=config_data.Settings_DROPDOWN_USER,
-            value=config_data.Settings_DROPDOWN_USER[0],
+            value=None,
             multiselect=False,
             allow_custom_value=False,
             label=config_data.Labels_USER_AFFILIATION,

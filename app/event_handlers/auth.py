@@ -18,12 +18,7 @@ def event_handler_auth(
     surname = surname.strip()
     username = username.strip()
 
-    is_auth_valid = (
-        surname
-        and username
-        and dropdown_user
-        and dropdown_user != config_data.Settings_DROPDOWN_USER[0]
-    )
+    is_auth_valid = surname and username and dropdown_user
 
     return (
         gr.Button(
