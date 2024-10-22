@@ -235,12 +235,12 @@ def settings_app_tab():
     return (top_subjects, max_skill_words, dropdown_models)
 
 
-def about_app_tab():
-    pass
+# def about_app_tab():
+#     pass
 
 
-def about_authors_tab():
-    pass
+# def about_authors_tab():
+#     pass
 
 
 def requirements_app_tab():

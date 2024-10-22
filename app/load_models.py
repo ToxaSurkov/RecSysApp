@@ -9,8 +9,7 @@ import torch
 import polars as pl
 from dataclasses import dataclass, field
 from sentence_transformers import SentenceTransformer
-from contextlib import contextmanager
-from typing import Optional, Generator
+from typing import Optional
 
 # Importing necessary components for the Gradio app
 from app.gpu_init import device
@@ -24,7 +23,7 @@ class ModelState:
     puds_embeddings: Optional[torch.Tensor] = field(
         default_factory=lambda: torch.empty(0)
     )
-    puds_names: Optional[list] = field(default_factory=list)
+    puds_names: Optional[pl.DataFrame] = field(default_factory=pl.DataFrame)
 
 
 @dataclass
@@ -50,41 +49,41 @@ class BaseModelManager:
     def get_puds_data(self) -> dict:
         if self._puds_data is None:
             return {}
-
         return self._puds_data
 
 
 @dataclass
 class SbertModelManager(BaseModelManager):
-    _instance: Optional["SbertModelManager"] = field(init=False, default=None)
+    _loaded_models: dict = field(default_factory=dict, init=False)
     model_name: Optional[str] = None
 
-    def __new__(cls):
-        if cls._instance is None:
-            cls._instance = super().__new__(cls)
-
-        return cls._instance
-
     def load_model(self, model_name: str) -> SentenceTransformer:
+        if model_name in self._loaded_models:
+            self.state.current_model = self._loaded_models[model_name]
+        else:
+            model = SentenceTransformer(
+                model_name_or_path=str(
+                    config_data.Path_APP / config_data.StaticPaths_MODELS / model_name
+                ),
+                device=device,
+                local_files_only=True,
+                trust_remote_code=True,
+            )
+            self.state.current_model = model
+            self._loaded_models[model_name] = model
+
         self.model_name = model_name
-
-        self.state.current_model = SentenceTransformer(
-            model_name_or_path=str(
-                config_data.Path_APP / config_data.StaticPaths_MODELS / model_name
-            ),
-            device=device,
-            local_files_only=True,
-            trust_remote_code=True,
-        )
-
         return self.state.current_model
 
     def get_current_model(self) -> Optional[SentenceTransformer]:
+        if self.state.current_model is None:
+            return None
+
         return self.state.current_model
 
     def update_embeddings(self) -> None:
         if self.state.current_model is None or self.model_name is None:
-            return
+            return None
 
         self.state.puds_embeddings, self.state.puds_names = extract_embeddings(
             model_name=self.model_name,
@@ -100,9 +99,6 @@ class SbertModelManager(BaseModelManager):
 
         return (self.state.puds_embeddings, self.state.puds_names)
 
-    @contextmanager
-    def switch_model(self, model_name: str) -> Generator[None, None, None]:
+    def change_model(self, model_name: str) -> None:
         self.load_model(model_name)
         self.update_embeddings()
-
-        yield

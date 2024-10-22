@@ -22,5 +22,4 @@ df_puds_skills = load_parquet(
 )
 
 model_manager_sbert = SbertModelManager()
-model_manager_sbert.load_model(config_data.Models_SBERT[0])
-model_manager_sbert.update_embeddings()
+model_manager_sbert.change_model(config_data.Models_SBERT[0])
