@@ -45,7 +45,7 @@ def load_config(file_path: str) -> SimpleNamespace:
 
     config_namespace = SimpleNamespace(**config_data)
 
-    setattr(config_namespace, "Path_APP", '/app')
+    setattr(config_namespace, "Path_APP", Path(__file__).parent.parent.resolve())
 
     return config_namespace
 
