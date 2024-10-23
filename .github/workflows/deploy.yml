@@ -36,7 +36,7 @@ jobs:
           ssh -t -o StrictHostKeyChecking=no ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} -p ${{ secrets.REMOTE_PORT }} << 'EOF'
           cd /home/${{ secrets.REMOTE_USER }}
           cd recsys
-          sudo docker build --progress=plain -t recsys-app-new .
+          sudo docker build --no-cache --progress=plain -t recsys-app-new .
           EOF
 
       # Step 4: Stop old container and run new Docker container on the server
