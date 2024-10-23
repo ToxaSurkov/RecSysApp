@@ -66,7 +66,7 @@ class SbertModelManager(BaseModelManager):
                     config_data.Path_APP / config_data.StaticPaths_MODELS / model_name
                 ),
                 device=device,
-                local_files_only=True,
+                local_files_only=False,
                 trust_remote_code=True,
             )
             self.state.current_model = model
