@@ -28,7 +28,12 @@ def event_handler_login(surname: str, username: str, dropdown_user: str) -> tupl
     surname = surname.strip()
     username = username.strip()
 
-    is_auth_valid = surname and username and dropdown_user
+    is_auth_valid = (
+        surname
+        and username
+        and dropdown_user
+        and dropdown_user != config_data.Settings_DROPDOWN_USER[0]
+    )
 
     return (
         gr.Textbox(
