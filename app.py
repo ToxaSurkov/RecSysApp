@@ -45,4 +45,4 @@ def create_gradio_app() -> gr.Blocks:
 
 
 if __name__ == "__main__":
-    create_gradio_app().queue(api_open=False).launch(share=False)
+    create_gradio_app().queue(api_open=False).launch(server_name="0.0.0.0", share=False)
