@@ -17,59 +17,60 @@ from app.data_init import cosine_similarity, df_puds_skills, model_manager_sbert
 from app.data_utils import get_embeddings, filter_unique_items, sort_subjects
 
 
-def generate_subject_info(subject_info: list[str]) -> str:
-    edu_level = (
-        "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_LEVELS_EDUCATION_LABEL
-        + "</span> <span class='value'>"
-        + config_data.EducationLevels_ALL_LEVELS
+def create_html_block(label: str, value: str) -> str:
+    return f"<div class='info-item'><span class='label'>{label}</span> <span class='value'>{value}</span></div>"
+
+
+def determine_edu_level(subject_info: list[str]) -> tuple[str, str]:
+    if not subject_info[6] or subject_info[6] in [
+        config_data.Settings_PRIORITY[-1],
+        config_data.Settings_PRIORITY[-2],
+        config_data.EducationLevels_NONE_LEVELS,
+    ]:
+        edu_level_label = config_data.HtmlContent_LEVELS_EDUCATION_LABEL
+        edu_level = config_data.EducationLevels_ALL_LEVELS
+    else:
+        edu_level_label = config_data.HtmlContent_LEVEL_EDUCATION_LABEL
+        edu_level = subject_info[6]
+
+    return edu_level_label, edu_level
+
+
+def generate_subject_info(
+    subject_info: list[str], edu_level_label: str, edu_level: str
+) -> str:
+    number_education_block = (
+        create_html_block(
+            (
+                config_data.HtmlContent_NUMBERS_EDUCATION
+                if "-" in subject_info[10]
+                else config_data.HtmlContent_NUMBER_EDUCATION
+            ),
+            subject_info[10],
+        )
+        if subject_info[10] != "-"
+        else "<div class='info-number-education-error'><span class='label'>"
+        + config_data.InformationMessages_LEVEL_NOT_DEFINED
         + "</span></div>"
-        if not subject_info[6]
-        or subject_info[6]
-        in [
-            config_data.Settings_PRIORITY[-1],
-            config_data.Settings_PRIORITY[-2],
-            config_data.EducationLevels_NONE_LEVELS,
+    )
+
+    return "".join(
+        [
+            create_html_block(config_data.HtmlContent_SUBJECT_LABEL, subject_info[1]),
+            create_html_block(
+                config_data.HtmlContent_ID_SUBJECT_LABEL, subject_info[0]
+            ),
+            create_html_block(
+                config_data.HtmlContent_DEPARTMENT_LABEL, subject_info[5]
+            ),
+            create_html_block(config_data.HtmlContent_FACULTY_LABEL, subject_info[4]),
+            create_html_block(config_data.HtmlContent_CAMPUS_LABEL, subject_info[3]),
+            create_html_block(edu_level_label, edu_level),
+            number_education_block,
+            create_html_block(config_data.HtmlContent_AUDIENCE_LABEL, subject_info[8]),
+            create_html_block(config_data.HtmlContent_FORMAT_LABEL, subject_info[9]),
         ]
-        else "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_LEVEL_EDUCATION_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[6]}</span></div>"
     )
-
-    subject_block = (
-        "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_SUBJECT_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[1]}</span></div>"
-        "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_ID_SUBJECT_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[0]}</span></div>"
-        "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_DEPARTMENT_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[5]}</span></div>"
-        "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_FACULTY_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[4]}</span></div>"
-        "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_CAMPUS_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[3]}</span></div>"
-        + edu_level
-        + "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_AUDIENCE_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[8]}</span></div>"
-        "<div class='info-item'><span class='label'>"
-        + config_data.HtmlContent_FORMAT_LABEL
-        + "</span> <span class='value'>"
-        + f"{subject_info[9]}</span></div>"
-    )
-
-    return subject_block
 
 
 def generate_skills(
@@ -164,30 +165,41 @@ def event_handler_generate_response(
                 + f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[4], "-")} | "
                 f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[5], "-")} | "
                 + f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[6], "-")} | "
-                f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[7], "-")}"
+                + f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[7], "-")} | "
+                + f"{match.get(config_data.DataframeHeaders_RU_SUBJECTS[8], "-")}"
             )
         else:
             formatted_subject = f"- | {subject} | CS={similarity:.4f}"
 
         all_top_items.append(formatted_subject)
 
-    subjects_sorted = sort_subjects("; ".join(all_top_items))
+    subjects_sorted = sort_subjects(all_top_items)
 
-    subject = list(map(str.strip, subject.split("|")))
+    grouped_subjects = {}
+    for subject in subjects_sorted.split(";"):
+        subject_info = list(map(str.strip, subject.split("|")))
 
-    content = (
-        "<div class='subject-info'>"
-        + "".join(
-            [
-                "<div class='info'>"
-                + f"{generate_subject_info(subject_info)}{generate_skills(subject_info[0], max_skill_words)}"
-                + "</div>"
-                for subject in subjects_sorted.split(";")
-                if (subject_info := list(map(str.strip, subject.split("|"))))
-            ]
+        edu_level_label, edu_level = determine_edu_level(subject_info)
+
+        if edu_level not in grouped_subjects:
+            grouped_subjects[edu_level] = []
+        grouped_subjects[edu_level].append((subject_info, edu_level_label, edu_level))
+
+    content = ""
+    for edu_level, subjects in grouped_subjects.items():
+        content += (
+            f"<div class='edu-group'><span>{edu_level}</span><div class='subject-info'>"
         )
-        + "</div>"
-    )
+
+        content += "".join(
+            "<div class='info'>"
+            + generate_subject_info(subject_info, edu_level_label, edu_level)
+            + generate_skills(subject_info[0], max_skill_words)
+            + "</div>"
+            for subject_info, edu_level_label, edu_level in subjects
+        )
+
+        content += "</div></div>"
 
     chat_history.append(ChatMessage(role="user", content=message))
     chat_history.append(ChatMessage(role="assistant", content=content))

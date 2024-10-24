@@ -1,5 +1,5 @@
 [AppSettings]
-APP_VERSION = "0.0.2"
+APP_VERSION = "0.0.3"
 CSS_PATH = "app.css"
 
 [AppInfo]
@@ -19,6 +19,7 @@ NOTI_AUTH = [
     "Все персональные данные успешно запонены",
 ]
 SKILLS_NOT_DEFINED = "Навыки не определены"
+LEVEL_NOT_DEFINED = "Курс обучения не указан"
 FROM_TO = "От {} до {}"
 MODEL = "Выберите модель"
 
@@ -43,6 +44,8 @@ NONE_LEVELS = "None"
 [HtmlContent]
 LEVELS_EDUCATION_LABEL = "Уровни обучения:"
 LEVEL_EDUCATION_LABEL = "Уровень обучения:"
+NUMBERS_EDUCATION = "Курсы обучения:"
+NUMBER_EDUCATION = "Курс обучения:"
 SUBJECT_LABEL = "Дисциплина:"
 ID_SUBJECT_LABEL = "ID дисциплины:"
 DEPARTMENT_LABEL = "Кафедра:"
@@ -77,7 +80,8 @@ RU_SUBJECTS = [
     "Уровень обучения",
     "Период изучения дисциплины",
     "Охват аудитории",
-    "Формат изучения"
+    "Формат изучения",
+    "Ограничения: Курс студентов"
 ]
 SUBJECTS_YEAR = "Период изучения дисциплины"
 SUBJECTS_FULL = [
@@ -97,7 +101,7 @@ DROPDOWN_USER = [
     "Технические специальности (студент)",
 ]
 USER_MAX_LENGTH = 20
-TOP_SUBJECTS_RANGE = [1, 40]
+TOP_SUBJECTS_RANGE = [5, 40]
 TOP_SUBJECTS = 20
 MAX_SKILL_WORDS_RANGE = [1, 10]
 MAX_SKILL_WORDS = 4
