@@ -61,6 +61,17 @@ div.chatbot img[alt="user avatar"] {
     width: 128px;
 }
 
+div.edu-group:not(:first-child) {
+    margin-top: 10px;
+}
+
+div.edu-group > span {
+    display: block;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
 div.subject-info {
     padding: 10px;
 }
@@ -85,12 +96,14 @@ div.subject-info > div.info > div.info-item:last-child {
 div.subject-info > div.info > div.info-item > span.label,
 div.subject-info > div.info > div.info-skills > span.label,
 div.subject-info > div.info > div.info-item-error > span.label,
-div.subject-info > div.info > div.info-skills-error > span.label {
+div.subject-info > div.info > div.info-skills-error > span.label,
+div.subject-info > div.info > div.info-number-education-error > span.label {
     font-weight: bold;
 }
 
 div.subject-info > div.info > div.info-item-error > span.label,
-div.subject-info > div.info > div.info-skills-error > span.label {
+div.subject-info > div.info > div.info-skills-error > span.label,
+div.subject-info > div.info > div.info-number-education-error > span.label {
     color: var(--color-accent);
 }
 
@@ -98,7 +111,8 @@ div.subject-info > div.info > div.info-item > span.label,
 div.subject-info > div.info > div.info-item > span.value,
 div.subject-info > div.info > div.info-skills > span.label,
 div.subject-info > div.info > div.info-item-error > span.label,
-div.subject-info > div.info > div.info-skills-error > span.label {
+div.subject-info > div.info > div.info-skills-error > span.label,
+div.subject-info > div.info > div.info-number-education-error > span.label {
     padding-left: 5px;
     padding-right: 5px;
 }

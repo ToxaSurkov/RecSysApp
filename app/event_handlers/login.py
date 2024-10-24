@@ -31,17 +31,9 @@ def event_handler_login(surname: str, username: str, dropdown_user: str) -> tupl
     is_auth_valid = surname and username and dropdown_user
 
     return (
-        gr.Textbox(
-            value=surname,
-            interactive=not is_auth_valid,
-        ),
-        gr.Textbox(
-            value=username,
-            interactive=not is_auth_valid,
-        ),
-        gr.Dropdown(
-            interactive=not is_auth_valid,
-        ),
+        gr.Textbox(value=surname, interactive=not is_auth_valid),
+        gr.Textbox(value=username, interactive=not is_auth_valid),
+        gr.Dropdown(interactive=not is_auth_valid),
         gr.Button(
             value=config_data.OtherMessages_AUTH,
             interactive=not is_auth_valid,

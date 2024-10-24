@@ -215,33 +215,88 @@ def filter_unique_items(
     return unique_items
 
 
-def extract_numbers(value):
-    numbers = re.findall(r"(\d+)\s*модуль", value)
-    return [int(num) for num in numbers] if numbers else None
+def extract_numbers(courses_str: str) -> list[int]:
+    return [int(num) for num in re.findall(r"\d+", courses_str)]
 
 
-def custom_sort_key(r: str) -> tuple[int, float, float]:
-    l = r.strip().split("|")
+def sort_courses(courses: str, edu_level: str) -> Optional[list[int]]:
+    course_pairs = re.findall(
+        r"({})\s*,\s*(\d)\s*курс".format(
+            config_data.EducationLevels_ALL_LEVELS.replace(", ", "|")
+        ),
+        courses,
+    )
 
-    category = l[6].strip() if len(l) > 6 else "nan"
+    all_levels = config_data.EducationLevels_ALL_LEVELS.split(", ")
 
-    edu_priority = {
-        item: index for index, item in enumerate(config_data.Settings_PRIORITY)
-    }
+    valid_courses = [
+        int(year)
+        for level, year in course_pairs
+        if level == edu_level
+        and int(year)
+        in {
+            all_levels[0]: range(1, 5),
+            all_levels[1]: {1},
+            all_levels[2]: range(1, 3),
+            all_levels[3]: range(1, 4),
+        }[level]
+    ]
 
-    category_priority = edu_priority.get(category, edu_priority["nan"])
-
-    numbers = extract_numbers(l[7].strip()) if len(l) > 7 else []
-
-    first_module = numbers[0] if numbers else float("inf")
-    last_module = numbers[-1] if numbers else float("inf")
-
-    return category_priority, first_module, last_module
+    return valid_courses
 
 
-def sort_subjects(subjects):
-    subjects = [d.strip() for d in subjects.split(";")]
+def sort_subjects(subjects: list[str]) -> str:
+    grouped_subjects = {}
 
-    sorted_subjects = sorted(subjects, key=custom_sort_key)
+    for subject in subjects:
+        parts = subject.split("|")
 
-    return "; ".join(sorted_subjects)
+        level = parts[6].strip()
+        courses_str = parts[10].strip()
+
+        if courses_str.lower() == config_data.EducationLevels_NONE_LEVELS.lower():
+            sorted_courses = []
+        else:
+            sorted_courses = sort_courses(courses_str, level)
+
+        if level not in grouped_subjects:
+            grouped_subjects[level] = []
+
+        grouped_subjects[level].append((sorted_courses, subject))
+
+    result = []
+
+    for level in sorted(
+        grouped_subjects.keys(),
+        key=lambda x: (
+            config_data.Settings_PRIORITY.index(x)
+            if x in config_data.Settings_PRIORITY
+            else float("inf")
+        ),
+    ):
+        items = grouped_subjects[level]
+
+        sorted_items = sorted(
+            items, key=lambda x: (min(x[0]) if x[0] else float("inf"), len(x[0]))
+        )
+
+        for courses, item in sorted_items:
+            parts = item.split("|")
+
+            if courses:
+                if len(courses) > 1:
+                    courses = sorted(courses)
+
+                    compact_courses = f"{courses[0]}-{courses[-1]}"
+                else:
+                    compact_courses = str(courses[0])
+            else:
+                compact_courses = None
+
+            parts[10] = compact_courses if compact_courses else None
+
+            result.append(
+                " | ".join(part.strip() if part is not None else "-" for part in parts)
+            )
+
+    return "; ".join(result)
