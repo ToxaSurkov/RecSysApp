@@ -54,6 +54,7 @@ CAMPUS_LABEL = "Кампус:"
 AUDIENCE_LABEL = "Охват аудитории:"
 FORMAT_LABEL = "Формат изучения:"
 SKILLS_LABEL = "Получаемые навыки:"
+VACANCY_LABEL = "Навыки вакансии:"
 
 [TabCreators]
 "⭐ Приложение" = "app_tab"
