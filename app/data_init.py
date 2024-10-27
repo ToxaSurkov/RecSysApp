@@ -23,7 +23,6 @@ df_puds_skills = load_parquet(
 model_manager_sbert = SbertModelManager()
 model_manager_sbert.change_model(config_data.Models_SBERT_PUDS[0])
 
-
 start_time = time.time()
 
 skills_extractor = SkillsExtractor(
