@@ -65,6 +65,7 @@ SKILLS_LABEL = "Получаемые навыки:"
 [StaticPaths]
 MODELS = "models"
 IMAGES = "images"
+FONTS = "fonts"
 PUDS = "data/ПУДы.parquet"
 PUDS_EMBEDDINGS = "data/ПУДы_эмбеддинги.safetensors"
 RU_SUBJECTS = "data/Названия_дисциплин_для_эмбеддингов.parquet"

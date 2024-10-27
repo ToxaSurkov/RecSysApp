@@ -1,4 +1,3 @@
-
 def get_header_html():
 
     return """
@@ -6,7 +5,7 @@ def get_header_html():
         <div>
             <!-- Логотип -->
             <div class="logo">
-                <img src="/file=/images/HSE.svg" alt="Логотип ВШЭ">
+                <img src="https://www.hse.ru/mirror/pubs/share/522215913" alt="Логотип ВШЭ">
                 <div class="logo-title">
                     Высшая Школа<br>Экономики
                 </div>
