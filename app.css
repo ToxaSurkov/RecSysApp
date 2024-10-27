@@ -323,6 +323,11 @@ button.auth:active:not([disabled]) {
 .message-container .wrap {
     background-color: #fafafa !important;
 }
+
+.message-wrap .message {
+    background-color: #fafafa !important;
+}
+
 button.send_message {
     display: contents;
 }
@@ -381,6 +386,7 @@ div.subject-info > div.info > div.info-item-error > span.label,
 div.subject-info > div.info > div.info-skills-error > span.label,
 div.subject-info > div.info > div.info-number-education-error > span.label {
     font-weight: bold;
+    /* color: #363636 !important; */
 }
 
 div.subject-info > div.info > div.info-item-error > span.label,
@@ -421,6 +427,10 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     margin-right: 0px;
 }
 
+.message-wrap .message>button {
+    color: black !important;
+}
+
 .settings-container>div{
     background-color: #fafafa !important;
     border: none !important;
@@ -430,6 +440,7 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 .settings-item{
     background-color: #fafafa !important;
 }
+
 
 .settings-item .has-info {
     color: var(--main-color);
