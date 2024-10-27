@@ -127,6 +127,7 @@ div.logo > img {
 }
 .tab-container>button:hover {
     background-color: var(--main-color);
+    color: #fff !important;
 }
 .tab-container>button.selected:hover {
     color: #fff;
@@ -296,6 +297,7 @@ button.auth:active:not([disabled]) {
 .chatbot-container .chatbot .wrapper >label {
     background-color: var(--main-color);
     font-family: 'HSESans', sans-serif !important;
+    color: #fff !important;
 }
 
 .chatbot-container .chatbot .placeholder-content{
