@@ -422,6 +422,106 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 }
 
 
+
+.settings-container
+
+
+
+.settings-container>div{
+    background-color: #fafafa !important;
+    border: none !important;
+    padding: 20px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.settings-item{
+    background-color: #fafafa !important;
+}
+
+.settings-item .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.settings-item p {
+    color: #000;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.settings-item input {
+    background-color: #fafafa !important;
+    border: 1px solid #363636 !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.settings-item input:focus {
+    background-color: #fafafa !important;
+    border: 1px solid var(--main-color) !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-models {
+    background-color: #fafafa !important;
+}
+
+.dropdown-models .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.dropdown-models p {
+    color: #000;
+    font-family: 'HSESans', sans-serif !important;
+}
+.dropdown-models .wrap {
+    background-color: #fafafa !important;
+    height: 42px;
+    border: 1px solid #363636 !important;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-models .wrap .options {
+    background-color: #fafafa !important;
+    margin-top: 5px;
+}
+.dropdown-models .wrap .options > li {
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+    background-color: #fafafa !important;
+}
+
+.dropdown-models .wrap .options > li.selected {
+    background-color: #dfdede !important;
+}
+
+.dropdown-models .wrap .options > li:hover{
+    background-color: #dfdede !important;
+}
+
+.dropdown-models .wrap input{
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-models .secondary-wrap input:disabled{
+    color: #363636 !important;
+    -webkit-text-fill-color: #363636 !important;
+}
+
+.dropdown-models .dropdown-arrow {
+    color: #363636;
+}
+
+
+
+
+
+
+
+
 /* убрать футер */
 .show-api,
 .built-with {

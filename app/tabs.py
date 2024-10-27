@@ -203,6 +203,7 @@ def settings_app_tab():
             minimum=config_data.Settings_TOP_SUBJECTS_RANGE[0],
             maximum=config_data.Settings_TOP_SUBJECTS_RANGE[1],
             step=1,
+            elem_classes="settings-item",
         )
 
         max_skill_words = gr.Number(
@@ -221,6 +222,7 @@ def settings_app_tab():
             minimum=config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
             maximum=config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
             step=1,
+            elem_classes="settings-item",
         )
 
         dropdown_models = gr.Dropdown(
