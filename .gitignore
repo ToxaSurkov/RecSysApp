@@ -171,5 +171,7 @@ dmypy.json
 .gradio/
 data/
 models/
+fonts/
 notebooks/requirements.txt
 project_structure.txt
+fonts/
