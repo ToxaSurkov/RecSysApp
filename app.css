@@ -1,8 +1,236 @@
+/* app.css */
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-SemiBold.otf') format('opentype');
+    font-weight: 600; /* Полужирный */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Black.otf') format('opentype');
+    font-weight: 900; /* Очень жирный */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Thin.otf') format('opentype');
+    font-weight: 100; /* Очень тонкий */
+    font-style: normal;
+}
+
+:root {
+    --main-color: #0F2D69; /* Основной цвет */
+    --additional-color: #001e99; /* Дополнительный цвет */
+    --bg-color: #e5e5e5; /* Серый 10% */
+    --gray-50: #7f7f7f; /* Серый 50% */
+    --gray-25: #bfbfbf; /* Серый 25% */
+}
+
+gradio-app {
+    background-color: var(--bg-color) !important;
+}
+.gradio-container {
+    color: var(--main-color) !important;
+}
+
+header {
+    display: flex;
+    border-bottom: 2px solid var(--gray-50); /*Нижняя граница */
+    font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
+    color: var(--main-color);
+    margin-bottom: 20px;
+}
+
+
+header > div {
+    display: flex;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    padding: 20px 0;
+    gap: 10px; /* Отступ между логотипом и текстом */
+    border-right: 2px solid var(--main-color);
+}
+
+.logo-title {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--main-color); /* Основной цвет текста */
+    text-transform: uppercase;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.header-text {
+    display: flex;
+    align-items: center;
+    width: 40%;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 15px;
+    color: var(--main-color); /* Основной цвет текста */
+    text-transform: uppercase;
+    text-align: left;
+    line-height: 1.2;
+    border-right: 2px solid var(--main-color);
+}
+
+.header-link {
+    width: 10%;
+    margin-left: 15px;
+    padding: 20px 0;
+    /* border-right: 2px solid var(--main-color); */
+
+}
+
+.header-link a {
+    font-size: 16px;
+    color: black; /* Дополнительный цвет текста */
+    text-decoration: none;
+    font-weight: 600; /* Полужирный */
+}
+
+.header-link a:hover {
+    color: var(--additional-color); /* Дополнительный цвет текста */
+}
+
+.svelte-ct9gpx {
+    color: #000;
+}
+.selected.svelte-ct9gpx.svelte-ct9gpx {
+    color: var(--main-color);
+}
+.selected.svelte-ct9gpx.svelte-ct9gpx:after {
+    background-color: var(--main-color);
+}
+
+.svelte-1ed2p3z h1{
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
+}
+
+.svelte-uqf9ro h2{
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
+    font-weight: 600; /* Полужирный */
+}
+
+.user-info {
+    background-color: #eeeeee;
+}
+
+.user-info .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.user-info p {
+    color: var(--gray-50);
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.user-info input {
+    background-color: rgb(216, 228, 243);
+    border: none !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.user-info input:focus {
+    background-color: rgb(216, 228, 243) !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-user {
+    background-color: #eeeeee;
+}
+
+.dropdown-user .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.dropdown-user p {
+    color: var(--gray-50);
+    font-family: 'HSESans', sans-serif !important;
+}
+.dropdown-user .wrap {
+    background-color: rgb(216, 228, 243);
+    height: 40px;
+    border: none !important;
+    font-family: 'HSESans', sans-serif !important;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+}
+
+.dropdown-user .wrap .options {
+    background-color: rgb(216, 228, 243);
+    /* color: #363636;
+    font-family: 'HSESans', sans-serif !important; */
+}
+.dropdown-user .wrap .options > li {
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+    background-color: rgb(216, 228, 243);
+}
+
+.dropdown-user .wrap .options > li.selected {
+    background-color: rgb(197, 215, 236);
+}
+
+.dropdown-user .wrap .options > li:hover{
+    background-color: rgb(197, 215, 236);
+}
+
+.dropdown-user .wrap input{
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+.dropdown-user .wrap input{
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+.dropdown-user .dropdown-arrow {
+    color: #363636;
+}
 .noti_err {
-    color: var(--color-accent);
+    color: var(--additional-color);
+    font-family: 'HSESans', sans-serif !important;
 }
 .noti_true {
     color: #006900;
+    font-family: 'HSESans', sans-serif !important;
 }
 
 div.app-flex-container {
@@ -18,8 +246,9 @@ button.auth {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    font-family: 'HSESans', sans-serif !important;
     border: var(--button-border-width) solid var(--button-primary-border-color);
-    background: var(--button-primary-background-fill);
+    background: var(--main-color);
     color: var(--button-primary-text-color);
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -33,7 +262,7 @@ button.send_message[disabled] > img {
 
 button.auth:hover:not([disabled]) {
     border-color: var(--button-primary-border-color-hover);
-    background: var(--button-primary-background-fill-hover);
+    background: var(--additional-color);
     color: var(--button-primary-text-color-hover);
 }
 
@@ -107,7 +336,7 @@ div.subject-info > div.info > div.info-number-education-error > span.label {
     color: var(--color-accent);
 }
 
-div.subject-info > div.info > div.info-item > span.label, 
+div.subject-info > div.info > div.info-item > span.label,
 div.subject-info > div.info > div.info-item > span.value,
 div.subject-info > div.info > div.info-skills > span.label,
 div.subject-info > div.info > div.info-item-error > span.label,

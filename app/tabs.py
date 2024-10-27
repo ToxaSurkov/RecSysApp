@@ -13,12 +13,14 @@ from app.description_steps import STEP_1, STEP_2
 from app.config import config_data
 from app.requirements_app import read_requirements
 from app.components import html_message
-
+from app.elements.elements import *
 
 def app_tab():
+
     gr.Markdown(value=DESCRIPTION)
 
     gr.HTML(value=STEP_1)
+
 
     with gr.Row(
         visible=True,
@@ -44,6 +46,8 @@ def app_tab():
             type="text",
             show_copy_button=False,
             max_length=config_data.Settings_USER_MAX_LENGTH,
+            elem_classes="user-info",
+
         )
 
         username = gr.Textbox(
@@ -64,6 +68,7 @@ def app_tab():
             type="text",
             show_copy_button=False,
             max_length=config_data.Settings_USER_MAX_LENGTH,
+            elem_classes="user-info",
         )
 
         dropdown_user = gr.Dropdown(
