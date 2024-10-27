@@ -13,9 +13,14 @@ import gradio as gr
 from app.config import CONFIG_NAME, config_data, load_tab_creators
 from app.event_handlers.event_handlers import setup_app_event_handlers
 import app.tabs
-from app.elements.elements import *
+from app.elements.elements import get_header_html
 
-gr.set_static_paths(paths=[config_data.Path_APP / config_data.StaticPaths_IMAGES])
+gr.set_static_paths(
+    paths=[
+        config_data.Path_APP / config_data.StaticPaths_IMAGES,
+        config_data.Path_APP / config_data.StaticPaths_FONTS,
+    ]
+)
 
 
 def create_gradio_app() -> gr.Blocks:
@@ -49,4 +54,14 @@ def create_gradio_app() -> gr.Blocks:
 
 
 if __name__ == "__main__":
-    create_gradio_app().queue(api_open=False).launch(share=False, allowed_paths=["fonts/HSE_Sans/HSESans-Regular.otf", "fonts/HSE_Sans/HSESans-Bold.otf", "fonts/HSE_Sans/HSESans-SemiBold.otf"])
+    create_gradio_app().queue(api_open=False).launch(
+        share=False,
+        allowed_paths=[
+            "fonts/HSE_Sans/HSESans-Regular.otf",
+            "fonts/HSE_Sans/HSESans-Bold.otf",
+            "fonts/HSE_Sans/HSESans-Italic.otf",
+            "fonts/HSE_Sans/HSESans-SemiBold.otf",
+            "fonts/HSE_Sans/HSESans-Black.otf",
+            "fonts/HSE_Sans/HSESans-Thin.otf",
+        ],
+    )
