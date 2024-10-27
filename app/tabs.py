@@ -219,8 +219,8 @@ def settings_app_tab():
         )
 
         dropdown_models = gr.Dropdown(
-            choices=config_data.Models_SBERT,
-            value=config_data.Models_SBERT[0],
+            choices=config_data.Models_SBERT_PUDS,
+            value=config_data.Models_SBERT_PUDS[0],
             multiselect=False,
             allow_custom_value=False,
             label=config_data.Labels_MODEL,

@@ -1,5 +1,5 @@
 [AppSettings]
-APP_VERSION = "0.0.3"
+APP_VERSION = "0.3.1"
 CSS_PATH = "app.css"
 
 [AppInfo]
@@ -54,6 +54,7 @@ CAMPUS_LABEL = "Кампус:"
 AUDIENCE_LABEL = "Охват аудитории:"
 FORMAT_LABEL = "Формат изучения:"
 SKILLS_LABEL = "Получаемые навыки:"
+VACANCY_LABEL = "Навыки вакансии:"
 
 [TabCreators]
 "⭐ Приложение" = "app_tab"
@@ -69,6 +70,9 @@ PUDS = "data/ПУДы.parquet"
 PUDS_EMBEDDINGS = "data/ПУДы_эмбеддинги.safetensors"
 RU_SUBJECTS = "data/Названия_дисциплин_для_эмбеддингов.parquet"
 PUDS_SKILLS = "data/ПУДы_навыки.parquet"
+VACANCY = "data/Вакансии.parquet"
+VACANCY_EMBEDDINGS = "data/Вакансии_эмбеддинги.safetensors"
+VACANCY_CSV = "data/Вакансии/Vacancy.csv"
 
 [DataframeHeaders]
 RU_ID = "ID дисциплины БУП ППК (АСАВ)"
@@ -118,9 +122,13 @@ PRIORITY = [
 
 [Models]
 TASK = "text-matching"
-SBERT = [
+EMBEDDINGS_NAME = "embeddings"
+SBERT_PUDS = [
     "jina-embeddings-v3",
     "paraphrase-multilingual-MiniLM-L12-v2",
+]
+SBERT_VACANCY = [
+    "LaBSE-en-ru"
 ]
 
 [Requirements]
