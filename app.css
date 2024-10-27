@@ -72,7 +72,7 @@ header > div {
 .logo {
     display: flex;
     align-items: center;
-    width: 50%;
+    width: 75%;
     padding: 20px 0;
     gap: 10px; /* Отступ между логотипом и текстом */
     border-right: 2px solid var(--main-color);
@@ -82,19 +82,24 @@ div.logo > img {
     width: 64px;
 }
 
-.logo-title {
+.logo-title>a {
     font-size: 24px;
     font-weight: 600;
-    color: var(--main-color); /* Основной цвет текста */
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
     text-transform: uppercase;
+    text-decoration: none;
     text-align: left;
     line-height: 1.2;
+}
+
+.logo-title>a:hover {
+    color: var(--additional-color); /* Основной цвет текста */
 }
 
 .header-text {
     display: flex;
     align-items: center;
-    width: 40%;
     font-size: 16px;
     font-weight: 600;
     margin-left: 15px;
@@ -102,31 +107,23 @@ div.logo > img {
     text-transform: uppercase;
     text-align: left;
     line-height: 1.2;
-    border-right: 2px solid var(--main-color);
 }
 
-.header-link {
-    width: 10%;
-    margin-left: 15px;
-    padding: 20px 0;
-    /* border-right: 2px solid var(--main-color); */
-
+.tabs {
+    margin-top: 10px;
 }
-
-.header-link a {
-    font-size: 16px;
-    color: black; /* Дополнительный цвет текста */
-    text-decoration: none;
-    font-weight: 600; /* Полужирный */
+.tab-container::after{
+    display: none !important;
 }
-
-.header-link a:hover {
-    color: var(--additional-color); /* Дополнительный цвет текста */
-}
-
 .tab-container>button {
     color: #000;
     font-family: 'HSESans', sans-serif !important;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.tab-container>button.selected {
+    color: var(--main-color);
 }
 .tab-container>button:hover {
     background-color: var(--main-color);
@@ -135,19 +132,16 @@ div.logo > img {
     color: #fff;
 }
 
-.selected.svelte-ct9gpx.svelte-ct9gpx {
-    color: var(--main-color);
-}
-.selected.svelte-ct9gpx.svelte-ct9gpx:after {
+.tab-container>button.selected::after {
     background-color: var(--main-color);
 }
 
-.svelte-1ed2p3z h1{
+.block h1{
     color: var(--main-color);
     font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
 }
 
-.svelte-uqf9ro h2{
+.block h2{
     color: var(--main-color);
     font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
     font-weight: 600; /* Полужирный */
@@ -269,7 +263,7 @@ button.auth {
     border: var(--button-border-width) solid var(--button-primary-border-color);
     background: var(--main-color);
     color: var(--button-primary-text-color);
-    border-radius: 8px;
+    border-radius: 4px;
     transition: all 0.3s ease;
 }
 
@@ -425,4 +419,12 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill {
 
 div.subject-info > div.info > div.info-skills > span.value > span.skill:last-child {
     margin-right: 0px;
+}
+
+
+/* убрать футер */
+.show-api,
+.built-with {
+    display: none !important;
+    opacity: 0 !important;
 }

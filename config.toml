@@ -1,5 +1,5 @@
 [AppSettings]
-APP_VERSION = "0.0.3"
+APP_VERSION = "0.0.3.2"
 CSS_PATH = "app.css"
 
 [AppInfo]
@@ -57,11 +57,11 @@ SKILLS_LABEL = "Получаемые навыки:"
 VACANCY_LABEL = "Навыки вакансии:"
 
 [TabCreators]
-"⭐ Приложение" = "app_tab"
-"⚙️ Настройки" = "settings_app_tab"
+"Приложение" = "app_tab"
+"Настройки" = "settings_app_tab"
 # "💡 О приложении" = "about_app_tab"
 # "🎭 Об авторах" = "about_authors_tab"
-"📋 Зависимости" = "requirements_app_tab"
+"Зависимости" = "requirements_app_tab"
 
 [StaticPaths]
 MODELS = "models"
@@ -71,6 +71,7 @@ PUDS = "data/ПУДы.parquet"
 PUDS_EMBEDDINGS = "data/ПУДы_эмбеддинги.safetensors"
 RU_SUBJECTS = "data/Названия_дисциплин_для_эмбеддингов.parquet"
 PUDS_SKILLS = "data/ПУДы_навыки.parquet"
+VACANCY_CSV = "data/Вакансии/Vacancy.csv"
 
 [DataframeHeaders]
 RU_ID = "ID дисциплины БУП ППК (АСАВ)"
