@@ -13,8 +13,12 @@ from gradio import ChatMessage
 
 # Importing necessary components for the Gradio app
 from app.config import config_data
-from app.data_init import df_puds_skills, model_manager_sbert, skills_extractor
-from app.cosine_similarity_init import cosine_similarity
+from app.data_init import (
+    cosine_similarity,
+    df_puds_skills,
+    model_manager_sbert,
+    skills_extractor,
+)
 from app.data_utils import get_embeddings, filter_unique_items, sort_subjects
 
 
@@ -189,8 +193,6 @@ def event_handler_generate_response(
     content = ""
 
     vacancy_skills = skills_extractor.key_skills_for_profession(message)
-
-    # key_skills = skills_extractor.key_skills_for_profession(message)
 
     skills_vacancy = "".join(
         [f"<span class='skill'>{skill}</span>" for skill in vacancy_skills]

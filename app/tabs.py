@@ -13,12 +13,14 @@ from app.description_steps import STEP_1, STEP_2
 from app.config import config_data
 from app.requirements_app import read_requirements
 from app.components import html_message
-
+from app.elements.elements import *
 
 def app_tab():
+
     gr.Markdown(value=DESCRIPTION)
 
     gr.HTML(value=STEP_1)
+
 
     with gr.Row(
         visible=True,
@@ -44,6 +46,8 @@ def app_tab():
             type="text",
             show_copy_button=False,
             max_length=config_data.Settings_USER_MAX_LENGTH,
+            elem_classes="user-info",
+
         )
 
         username = gr.Textbox(
@@ -64,6 +68,7 @@ def app_tab():
             type="text",
             show_copy_button=False,
             max_length=config_data.Settings_USER_MAX_LENGTH,
+            elem_classes="user-info",
         )
 
         dropdown_user = gr.Dropdown(
@@ -155,7 +160,7 @@ def app_tab():
                 scale=1,
                 icon=config_data.Path_APP
                 / config_data.StaticPaths_IMAGES
-                / "message.svg",
+                / "btn_message.svg",
                 visible=False,
                 elem_classes="send_message",
             )
@@ -198,6 +203,7 @@ def settings_app_tab():
             minimum=config_data.Settings_TOP_SUBJECTS_RANGE[0],
             maximum=config_data.Settings_TOP_SUBJECTS_RANGE[1],
             step=1,
+            elem_classes="settings-item",
         )
 
         max_skill_words = gr.Number(
@@ -216,11 +222,12 @@ def settings_app_tab():
             minimum=config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
             maximum=config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
             step=1,
+            elem_classes="settings-item",
         )
 
         dropdown_models = gr.Dropdown(
-            choices=config_data.Models_SBERT_PUDS,
-            value=config_data.Models_SBERT_PUDS[0],
+            choices=config_data.Models_SBERT,
+            value=config_data.Models_SBERT[0],
             multiselect=False,
             allow_custom_value=False,
             label=config_data.Labels_MODEL,

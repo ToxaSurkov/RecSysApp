@@ -1,5 +1,5 @@
 [AppSettings]
-APP_VERSION = "0.0.3.1"
+APP_VERSION = "0.0.3.2"
 CSS_PATH = "app.css"
 
 [AppInfo]
@@ -57,21 +57,20 @@ SKILLS_LABEL = "Получаемые навыки:"
 VACANCY_LABEL = "Навыки вакансии:"
 
 [TabCreators]
-"⭐ Приложение" = "app_tab"
-"⚙️ Настройки" = "settings_app_tab"
+"Приложение" = "app_tab"
+"Настройки" = "settings_app_tab"
 # "💡 О приложении" = "about_app_tab"
 # "🎭 Об авторах" = "about_authors_tab"
-"📋 Зависимости" = "requirements_app_tab"
+"Зависимости" = "requirements_app_tab"
 
 [StaticPaths]
 MODELS = "models"
 IMAGES = "images"
+FONTS = "fonts"
 PUDS = "data/ПУДы.parquet"
 PUDS_EMBEDDINGS = "data/ПУДы_эмбеддинги.safetensors"
 RU_SUBJECTS = "data/Названия_дисциплин_для_эмбеддингов.parquet"
 PUDS_SKILLS = "data/ПУДы_навыки.parquet"
-VACANCY = "data/Вакансии.parquet"
-VACANCY_EMBEDDINGS = "data/Вакансии_эмбеддинги.safetensors"
 VACANCY_CSV = "data/Вакансии/Vacancy.csv"
 
 [DataframeHeaders]
@@ -122,10 +121,9 @@ PRIORITY = [
 
 [Models]
 TASK = "text-matching"
-EMBEDDINGS_NAME = "embeddings"
-SBERT_PUDS = [
-    "jina-embeddings-v3",
+SBERT = [
     "paraphrase-multilingual-MiniLM-L12-v2",
+    "jina-embeddings-v3",
 ]
 SBERT_VACANCY = [
     "LaBSE-en-ru"

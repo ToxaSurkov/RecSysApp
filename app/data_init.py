@@ -6,6 +6,7 @@ License: MIT License
 """
 
 import time
+import torch
 
 # Importing necessary components for the Gradio app
 from app.config import config_data
@@ -14,6 +15,8 @@ from app.load_models import SbertModelManager
 from app.load_vacancy_models import SkillsExtractor
 
 
+cosine_similarity = torch.nn.CosineSimilarity()
+
 df_puds_skills = load_parquet(
     path=config_data.Path_APP / config_data.StaticPaths_PUDS_SKILLS,
     drop_duplicates=True,
@@ -21,8 +24,7 @@ df_puds_skills = load_parquet(
 )
 
 model_manager_sbert = SbertModelManager()
-model_manager_sbert.change_model(config_data.Models_SBERT_PUDS[0])
-
+model_manager_sbert.change_model(config_data.Models_SBERT[0])
 
 start_time = time.time()
 

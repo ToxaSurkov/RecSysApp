@@ -1,8 +1,247 @@
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Italic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-SemiBold.otf') format('opentype');
+    font-weight: 600; /* Полужирный */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Black.otf') format('opentype');
+    font-weight: 900; /* Очень жирный */
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'HSESans';
+    src: url('/file=fonts/HSE_Sans/HSESans-Thin.otf') format('opentype');
+    font-weight: 100; /* Очень тонкий */
+    font-style: normal;
+}
+
+:root {
+    --main-color: #0F2D69; /* Основной цвет */
+    --additional-color: #001e99; /* Дополнительный цвет */
+    --bg-color: #eeeeee; /* Серый 10% */
+    --gray-50: #7f7f7f; /* Серый 50% */
+    --gray-25: #bfbfbf; /* Серый 25% */
+}
+
+gradio-app {
+    background-color: var(--bg-color) !important;
+}
+.gradio-container {
+    color: var(--main-color) !important;
+}
+
+header {
+    display: flex;
+    border-bottom: 2px solid var(--gray-50); /*Нижняя граница */
+    font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
+    color: var(--main-color);
+    margin-bottom: 20px;
+}
+
+
+header > div {
+    display: flex;
+    width: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    width: 75%;
+    padding: 20px 0;
+    gap: 10px; /* Отступ между логотипом и текстом */
+    border-right: 2px solid var(--main-color);
+}
+
+div.logo > img {
+    width: 64px;
+}
+
+.logo-title>a {
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.logo-title>a:hover {
+    color: var(--additional-color); /* Основной цвет текста */
+}
+
+.header-text {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-left: 15px;
+    color: var(--main-color); /* Основной цвет текста */
+    text-transform: uppercase;
+    text-align: left;
+    line-height: 1.2;
+}
+
+.tabs {
+    margin-top: 10px;
+}
+.tab-container::after{
+    display: none !important;
+}
+.tab-container>button {
+    color: #000;
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+.tab-container>button.selected {
+    color: var(--main-color);
+}
+.tab-container>button:hover {
+    background-color: var(--main-color);
+    color: #fff !important;
+}
+.tab-container>button.selected:hover {
+    color: #fff;
+}
+
+.tab-container>button.selected::after {
+    background-color: var(--main-color);
+}
+
+.block h1{
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
+}
+
+.block h2{
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important; /* Используем шрифт HSESans */
+    font-weight: 600; /* Полужирный */
+}
+
+.user-container>div{
+    background-color: #fafafa !important;
+    border: none !important;
+    padding: 20px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.user-info {
+    background-color: #fafafa !important;
+}
+
+.user-info .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.user-info p {
+    color: #000;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.user-info input {
+    background-color: #fafafa !important;
+    border: 1px solid #363636 !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.user-info input:focus {
+    background-color: #fafafa !important;
+    border: 1px solid var(--main-color) !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-user {
+    background-color: #fafafa !important;
+}
+
+.dropdown-user .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.dropdown-user p {
+    color: #000;
+    font-family: 'HSESans', sans-serif !important;
+}
+.dropdown-user .wrap {
+    background-color: #fafafa !important;
+    height: 42px;
+    border: 1px solid #363636 !important;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-user .wrap .options {
+    background-color: #fafafa !important;
+    margin-top: 5px;
+}
+.dropdown-user .wrap .options > li {
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+    background-color: #fafafa !important;
+}
+
+.dropdown-user .wrap .options > li.selected {
+    background-color: #dfdede !important;
+}
+
+.dropdown-user .wrap .options > li:hover{
+    background-color: #dfdede !important;
+}
+
+.dropdown-user .wrap input{
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-user .secondary-wrap input:disabled{
+    color: #363636 !important;
+    -webkit-text-fill-color: #363636 !important;
+}
+
+.dropdown-user .dropdown-arrow {
+    color: #363636;
+}
 .noti_err {
-    color: var(--color-accent);
+    color: var(--additional-color);
+    font-family: 'HSESans', sans-serif !important;
 }
 .noti_true {
     color: #006900;
+    font-family: 'HSESans', sans-serif !important;
 }
 
 div.app-flex-container {
@@ -10,6 +249,9 @@ div.app-flex-container {
     gap: 6px;
 }
 
+.auth-container {
+    margin-top: 10px;
+}
 button.auth {
     display: flex;
     padding: 10px 20px;
@@ -18,10 +260,11 @@ button.auth {
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    font-family: 'HSESans', sans-serif !important;
     border: var(--button-border-width) solid var(--button-primary-border-color);
-    background: var(--button-primary-background-fill);
+    background: var(--main-color);
     color: var(--button-primary-text-color);
-    border-radius: 8px;
+    border-radius: 4px;
     transition: all 0.3s ease;
 }
 
@@ -33,12 +276,58 @@ button.send_message[disabled] > img {
 
 button.auth:hover:not([disabled]) {
     border-color: var(--button-primary-border-color-hover);
-    background: var(--button-primary-background-fill-hover);
+    background: var(--additional-color);
     color: var(--button-primary-text-color-hover);
 }
 
 button.auth:active:not([disabled]) {
     transform: scale(0.98);
+}
+
+.chatbot-container .chatbot {
+    background-color: #fafafa !important;
+    border: none !important;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.15);
+    font-family: 'HSESans', sans-serif !important;
+}
+.chatbot-container .chatbot .bubble-wrap {
+    background-color: #fafafa !important;
+    /* font-family: 'HSESans', sans-serif !important; */
+}
+.chatbot-container .chatbot .wrapper >label {
+    background-color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    color: #fff !important;
+}
+
+.chatbot-container .chatbot .placeholder-content{
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+.message-container {
+    align-items: center;
+}
+.message-container>div {
+    background-color: #fafafa !important;
+    border: 1px solid #363636 !important;
+}
+.message-container>div>div {
+    background-color: #fafafa !important;
+}
+.message-container>div:focus {
+    border: 1px solid var(--main-color) !important;
+}
+.message-container .input-container>textarea {
+    background-color: #fafafa !important;
+    font-family: 'HSESans', sans-serif !important;
+    color: #363636;
+}
+.message-container .wrap {
+    background-color: #fafafa !important;
+}
+
+.message-wrap .message {
+    background-color: #fafafa !important;
 }
 
 button.send_message {
@@ -99,6 +388,7 @@ div.subject-info > div.info > div.info-item-error > span.label,
 div.subject-info > div.info > div.info-skills-error > span.label,
 div.subject-info > div.info > div.info-number-education-error > span.label {
     font-weight: bold;
+    /* color: #363636 !important; */
 }
 
 div.subject-info > div.info > div.info-item-error > span.label,
@@ -107,7 +397,7 @@ div.subject-info > div.info > div.info-number-education-error > span.label {
     color: var(--color-accent);
 }
 
-div.subject-info > div.info > div.info-item > span.label, 
+div.subject-info > div.info > div.info-item > span.label,
 div.subject-info > div.info > div.info-item > span.value,
 div.subject-info > div.info > div.info-skills > span.label,
 div.subject-info > div.info > div.info-item-error > span.label,
@@ -137,4 +427,104 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill {
 
 div.subject-info > div.info > div.info-skills > span.value > span.skill:last-child {
     margin-right: 0px;
+}
+
+.message-wrap .message>button {
+    color: black !important;
+}
+
+.settings-container>div{
+    background-color: #fafafa !important;
+    border: none !important;
+    padding: 20px 0;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.settings-item{
+    background-color: #fafafa !important;
+}
+
+
+.settings-item .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.settings-item p {
+    color: #000;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.settings-item input {
+    background-color: #fafafa !important;
+    border: 1px solid #363636 !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.settings-item input:focus {
+    background-color: #fafafa !important;
+    border: 1px solid var(--main-color) !important;
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-models {
+    background-color: #fafafa !important;
+}
+
+.dropdown-models .has-info {
+    color: var(--main-color);
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600; /* Полужирный */
+}
+
+.dropdown-models p {
+    color: #000;
+    font-family: 'HSESans', sans-serif !important;
+}
+.dropdown-models .wrap {
+    background-color: #fafafa !important;
+    height: 42px;
+    border: 1px solid #363636 !important;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-models .wrap .options {
+    background-color: #fafafa !important;
+    margin-top: 5px;
+}
+.dropdown-models .wrap .options > li {
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+    background-color: #fafafa !important;
+}
+
+.dropdown-models .wrap .options > li.selected {
+    background-color: #dfdede !important;
+}
+
+.dropdown-models .wrap .options > li:hover{
+    background-color: #dfdede !important;
+}
+
+.dropdown-models .wrap input{
+    color: #363636;
+    font-family: 'HSESans', sans-serif !important;
+}
+
+.dropdown-models .secondary-wrap input:disabled{
+    color: #363636 !important;
+    -webkit-text-fill-color: #363636 !important;
+}
+
+.dropdown-models .dropdown-arrow {
+    color: #363636;
+}
+
+/* убрать футер */
+.show-api,
+.built-with {
+    display: none !important;
+    opacity: 0 !important;
 }
