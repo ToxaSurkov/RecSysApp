@@ -421,12 +421,6 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     margin-right: 0px;
 }
 
-
-
-.settings-container
-
-
-
 .settings-container>div{
     background-color: #fafafa !important;
     border: none !important;
@@ -514,13 +508,6 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 .dropdown-models .dropdown-arrow {
     color: #363636;
 }
-
-
-
-
-
-
-
 
 /* убрать футер */
 .show-api,
