@@ -160,7 +160,7 @@ def app_tab():
                 scale=1,
                 icon=config_data.Path_APP
                 / config_data.StaticPaths_IMAGES
-                / "message.svg",
+                / "btn_message.svg",
                 visible=False,
                 elem_classes="send_message",
             )
