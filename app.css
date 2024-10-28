@@ -55,6 +55,7 @@ gradio-app {
     color: var(--main-color) !important;
 }
 
+
 header {
     display: flex;
     border-bottom: 2px solid var(--gray-50); /*Нижняя граница */
@@ -62,7 +63,6 @@ header {
     color: var(--main-color);
     margin-bottom: 20px;
 }
-
 
 header > div {
     display: flex;
@@ -368,6 +368,11 @@ button.send_message > img {
 .chatbot-container .progress-text {
     background-color: #fafafa !important;
 }
+
+.message-container .eta-bar {
+    background-color: var(--main-color);
+}
+
 div.avatar-container {
     justify-content: center;
     align-items: center;
@@ -566,6 +571,18 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     color: #363636;
 }
 
+.requirements-dataframe .table-wrap {
+    font-family: 'HSESans', sans-serif !important;
+    border: none !important;
+}
+
+.requirements-dataframe .table-wrap>button thead>tr>th{
+    background-color: #fafafa !important;
+    color: black;
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600;
+}
+
 /* убрать футер */
 .show-api,
 .built-with {
@@ -573,6 +590,10 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     opacity: 0 !important;
 }
 
-.svelte-zyxd38.margin >svg >g>path{
+.svelte-zyxd38.margin>svg>g>path{
     fill: var(--main-color);
+}
+
+.message-container .svelte-zyxd38.margin>svg>g>path {
+    fill: var(--gray-25);
 }
