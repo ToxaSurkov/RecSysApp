@@ -333,14 +333,16 @@ button.auth:active:not([disabled]) {
     background-color: #fafafa !important;
 }
 
-.chatbot-container .image-preview .icon-button-wrapper{
+.chatbot-container .icon-button-wrapper{
     /* background-color: #fafafa !important; */
     border: none !important;
 }
-.chatbot-container .image-preview .icon-button-wrapper>button {
+.chatbot-container .icon-button-wrapper>button {
     background-color: var(--main-color);
+    border-color: var(--additional-color);
+    border-width: 0.5px;
 }
-.chatbot-container .image-preview .icon-button-wrapper>button:hover {
+.chatbot-container .icon-button-wrapper>button:hover {
     background-color: var(--additional-color);
 }
 
@@ -434,8 +436,8 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill {
     border-color: var(--main-color);
     background-color: #fafafa !important;
     border-style: solid;
-    border-width: var(--block-border-width);
-    color: #363636;
+    border-width: 2px;
+    color: #000;
     margin: 10px 10px 0px 0px;
 }
 
