@@ -329,6 +329,20 @@ button.auth:active:not([disabled]) {
 .message-wrap .message {
     background-color: #fafafa !important;
 }
+.chatbot-container .image-preview {
+    background-color: #fafafa !important;
+}
+
+.chatbot-container .image-preview .icon-button-wrapper{
+    /* background-color: #fafafa !important; */
+    border: none !important;
+}
+.chatbot-container .image-preview .icon-button-wrapper>button {
+    background-color: var(--main-color);
+}
+.chatbot-container .image-preview .icon-button-wrapper>button:hover {
+    background-color: var(--additional-color);
+}
 
 button.send_message {
     display: contents;
@@ -416,12 +430,12 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill {
     align-items: center;
     justify-content: center;
     padding: 5px 10px;
-    border-radius: 5px;
-    border-color: var(--block-border-color);
-    background-color: var(--input-background-fill);
+    border-radius: 4px;
+    border-color: var(--main-color);
+    background-color: #fafafa !important;
     border-style: solid;
     border-width: var(--block-border-width);
-    color: var(--body-text-color);
+    color: #363636;
     margin: 10px 10px 0px 0px;
 }
 
