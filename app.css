@@ -572,3 +572,7 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     display: none !important;
     opacity: 0 !important;
 }
+
+.svelte-zyxd38.margin >svg >g>path{
+    fill: var(--main-color);
+}
