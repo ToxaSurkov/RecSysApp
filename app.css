@@ -357,6 +357,7 @@ div.edu-group:not(:first-child) {
 div.edu-group > span {
     display: block;
     text-align: center;
+    color: black !important;
     font-size: 18px;
     font-weight: bold;
 }
@@ -388,7 +389,6 @@ div.subject-info > div.info > div.info-item-error > span.label,
 div.subject-info > div.info > div.info-skills-error > span.label,
 div.subject-info > div.info > div.info-number-education-error > span.label {
     font-weight: bold;
-    /* color: #363636 !important; */
 }
 
 div.subject-info > div.info > div.info-item-error > span.label,
@@ -430,6 +430,16 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 }
 
 .message-wrap .message>button {
+    color: black !important;
+}
+.message.user .chatbot.prose p{
+    color: black !important;
+}
+
+.info .info-skills>.label{
+    color: black !important;
+}
+.info .info-item span {
     color: black !important;
 }
 
