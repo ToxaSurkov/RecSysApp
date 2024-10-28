@@ -576,11 +576,26 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     border: none !important;
 }
 
-.requirements-dataframe .table-wrap>button thead>tr>th{
+.requirements-dataframe .table-wrap .thead>tr>th{
     background-color: #fafafa !important;
     color: black;
     font-family: 'HSESans', sans-serif !important;
     font-weight: 600;
+}
+
+.requirements-dataframe {
+    padding:  20px 10px 25px 10px;
+    background-color: #fafafa !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.requirements-dataframe .table-wrap .tbody>tr>td{
+    background-color: #fafafa !important;
+    color: black;
+}
+
+.requirements-dataframe .table-wrap .tbody>tr>td p{
+    color: black;
+    /* font-family: 'HSESans', sans-serif !important; */
 }
 
 /* убрать футер */
