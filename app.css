@@ -284,6 +284,16 @@ button.auth:active:not([disabled]) {
     transform: scale(0.98);
 }
 
+.user-container .wrap.default{
+    background-color: #fafafa !important;
+}
+.dropdown-user .wrap.default{
+    background-color: #fafafa !important;
+    height: 100%;
+    border-width: 0px;
+}
+
+
 .chatbot-container .chatbot {
     background-color: #fafafa !important;
     border: none !important;
