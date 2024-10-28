@@ -55,6 +55,7 @@ gradio-app {
     color: var(--main-color) !important;
 }
 
+
 header {
     display: flex;
     border-bottom: 2px solid var(--gray-50); /*Нижняя граница */
@@ -62,7 +63,6 @@ header {
     color: var(--main-color);
     margin-bottom: 20px;
 }
-
 
 header > div {
     display: flex;
@@ -284,6 +284,15 @@ button.auth:active:not([disabled]) {
     transform: scale(0.98);
 }
 
+.user-container .wrap.default{
+    background-color: #fafafa !important;
+}
+.dropdown-user .wrap.default{
+    background-color: #fafafa !important;
+    height: 100%;
+    border: none !important;
+}
+
 .chatbot-container .chatbot {
     background-color: #fafafa !important;
     border: none !important;
@@ -329,6 +338,22 @@ button.auth:active:not([disabled]) {
 .message-wrap .message {
     background-color: #fafafa !important;
 }
+.chatbot-container .image-preview {
+    background-color: #fafafa !important;
+}
+
+.chatbot-container .icon-button-wrapper{
+    /* background-color: #fafafa !important; */
+    border: none !important;
+}
+.chatbot-container .icon-button-wrapper>button {
+    background-color: var(--main-color);
+    border-color: var(--additional-color);
+    border-width: 0.5px;
+}
+.chatbot-container .icon-button-wrapper>button:hover {
+    background-color: var(--additional-color);
+}
 
 button.send_message {
     display: contents;
@@ -338,6 +363,14 @@ button.send_message > img {
     width: 36px;
     height: 36px;
     transition: all 0.3s ease;
+}
+
+.chatbot-container .progress-text {
+    background-color: #fafafa !important;
+}
+
+.message-container .eta-bar {
+    background-color: var(--main-color);
 }
 
 div.avatar-container {
@@ -357,6 +390,7 @@ div.edu-group:not(:first-child) {
 div.edu-group > span {
     display: block;
     text-align: center;
+    color: black !important;
     font-size: 18px;
     font-weight: bold;
 }
@@ -369,7 +403,7 @@ div.subject-info > div.info {
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom-width: 3px;
-    border-bottom-color: var(--border-color-primary);
+    border-bottom-color: var(--main-color);
 }
 
 div.subject-info > div.info:last-child {
@@ -388,7 +422,6 @@ div.subject-info > div.info > div.info-item-error > span.label,
 div.subject-info > div.info > div.info-skills-error > span.label,
 div.subject-info > div.info > div.info-number-education-error > span.label {
     font-weight: bold;
-    /* color: #363636 !important; */
 }
 
 div.subject-info > div.info > div.info-item-error > span.label,
@@ -416,12 +449,12 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill {
     align-items: center;
     justify-content: center;
     padding: 5px 10px;
-    border-radius: 5px;
-    border-color: var(--block-border-color);
-    background-color: var(--input-background-fill);
+    border-radius: 4px;
+    border-color: var(--main-color);
+    background-color: #fafafa !important;
     border-style: solid;
-    border-width: var(--block-border-width);
-    color: var(--body-text-color);
+    border-width: 2px;
+    color: #000;
     margin: 10px 10px 0px 0px;
 }
 
@@ -431,6 +464,22 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 
 .message-wrap .message>button {
     color: black !important;
+}
+.message.user .chatbot.prose p{
+    color: black !important;
+}
+
+.info .info-skills>.label{
+    color: black !important;
+}
+.info .info-item span {
+    color: black !important;
+}
+
+.message-container .error {
+    background-color: #fafafa !important;
+    font-family: 'HSESans', sans-serif !important;
+    color: black;
 }
 
 .settings-container>div{
@@ -522,9 +571,44 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     color: #363636;
 }
 
+.requirements-dataframe .table-wrap {
+    font-family: 'HSESans', sans-serif !important;
+    border: none !important;
+}
+
+.requirements-dataframe .table-wrap .thead>tr>th{
+    background-color: #fafafa !important;
+    color: black;
+    font-family: 'HSESans', sans-serif !important;
+    font-weight: 600;
+}
+
+.requirements-dataframe {
+    padding:  20px 10px 25px 10px;
+    background-color: #fafafa !important;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+.requirements-dataframe .table-wrap .tbody>tr>td{
+    background-color: #fafafa !important;
+    color: black;
+}
+
+.requirements-dataframe .table-wrap .tbody>tr>td p{
+    color: black;
+    /* font-family: 'HSESans', sans-serif !important; */
+}
+
 /* убрать футер */
 .show-api,
 .built-with {
     display: none !important;
     opacity: 0 !important;
+}
+
+.svelte-zyxd38.margin>svg>g>path{
+    fill: var(--main-color);
+}
+
+.message-container .svelte-zyxd38.margin>svg>g>path {
+    fill: var(--gray-25);
 }
