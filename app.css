@@ -365,6 +365,9 @@ button.send_message > img {
     transition: all 0.3s ease;
 }
 
+.chatbot-container .progress-text {
+    background-color: #fafafa !important;
+}
 div.avatar-container {
     justify-content: center;
     align-items: center;
