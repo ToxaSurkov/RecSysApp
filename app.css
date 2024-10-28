@@ -386,7 +386,7 @@ div.subject-info > div.info {
     padding-bottom: 20px;
     margin-bottom: 20px;
     border-bottom-width: 3px;
-    border-bottom-color: var(--border-color-primary);
+    border-bottom-color: var(--main-color);
 }
 
 div.subject-info > div.info:last-child {
@@ -457,6 +457,12 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 }
 .info .info-item span {
     color: black !important;
+}
+
+.message-container .error {
+    background-color: #fafafa !important;
+    font-family: 'HSESans', sans-serif !important;
+    color: black;
 }
 
 .settings-container>div{
