@@ -290,9 +290,8 @@ button.auth:active:not([disabled]) {
 .dropdown-user .wrap.default{
     background-color: #fafafa !important;
     height: 100%;
-    border-width: 0px;
+    border: none !important;
 }
-
 
 .chatbot-container .chatbot {
     background-color: #fafafa !important;
