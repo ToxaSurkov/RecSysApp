@@ -1,5 +1,5 @@
 [AppSettings]
-APP_VERSION = "0.0.3.3"
+APP_VERSION = "0.0.3.4"
 CSS_PATH = "app.css"
 
 [AppInfo]
@@ -71,7 +71,7 @@ PUDS = "data/ПУДы.parquet"
 PUDS_EMBEDDINGS = "data/ПУДы_эмбеддинги.safetensors"
 RU_SUBJECTS = "data/Названия_дисциплин_для_эмбеддингов.parquet"
 PUDS_SKILLS = "data/ПУДы_навыки.parquet"
-VACANCY_CSV = "data/Вакансии/Vacancy.csv"
+VACANCY = "data/Вакансии/Vacancy.parquet"
 
 [DataframeHeaders]
 RU_ID = "ID дисциплины БУП ППК (АСАВ)"

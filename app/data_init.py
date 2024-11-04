@@ -5,7 +5,6 @@ Description: Initial data loading.
 License: MIT License
 """
 
-import time
 import torch
 
 # Importing necessary components for the Gradio app
@@ -26,13 +25,6 @@ df_puds_skills = load_parquet(
 model_manager_sbert = SbertModelManager()
 model_manager_sbert.change_model(config_data.Models_SBERT[0])
 
-start_time = time.time()
-
 skills_extractor = SkillsExtractor(
-    path_to_vacancies_info=config_data.Path_APP / config_data.StaticPaths_VACANCY_CSV
+    path_to_vacancies_info=config_data.Path_APP / config_data.StaticPaths_VACANCY
 )
-
-end_time = time.time()
-elapsed_time = end_time - start_time
-
-print(f"Время выполнения: {elapsed_time:.6f} секунд")

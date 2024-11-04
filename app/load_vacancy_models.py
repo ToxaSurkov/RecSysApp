@@ -10,7 +10,6 @@ from transformers import AutoTokenizer, AutoModel
 from scipy.spatial.distance import cosine
 import pandas as pd
 import numpy as np
-from collections import Counter
 
 # Importing necessary components for the Gradio app
 from app.config import config_data
@@ -125,7 +124,6 @@ class VacancyFinder:
 
 
 class SkillsExtractor:
-
     def __init__(
         self,
         path_to_vacancies_info,
@@ -148,11 +146,14 @@ class SkillsExtractor:
         self.vacancy_finder = VacancyFinder(self.embedding_extractor, emb_df)
 
     def key_skills_for_profession(
-        self, profession, max_skills=100, min_frequency=3, 
-        nearest_vacancies=50, nearest_titles=5, filter_near=True
+        self,
+        profession,
+        max_skills=100,
+        min_frequency=3,
+        nearest_vacancies=50,
+        nearest_titles=5,
+        filter_near=True,
     ):
-        final_skills = []
-    
         all_key_skills = []
         for _, key_skills, _, _, _, _ in self.vacancy_finder.get_best_vacancies(
             profession, amount=nearest_vacancies, nearest_titles=nearest_titles
@@ -166,15 +167,19 @@ class SkillsExtractor:
             found = False
             for selected_skill in selected_skills:
                 if filter_near:
-                    selected_skill_emb = self.embedding_extractor.extract(selected_skill)
+                    selected_skill_emb = self.embedding_extractor.extract(
+                        selected_skill
+                    )
                     skill_emb = self.embedding_extractor.extract(skill)
-                    similarity = self.embedding_extractor.similarity(skill_emb, selected_skill_emb)
+                    similarity = self.embedding_extractor.similarity(
+                        skill_emb, selected_skill_emb
+                    )
                 else:
                     if skill == selected_skill:
                         similarity = 1.0
                     else:
                         similarity = 0.0
-                        
+
                 if similarity > 0.9:
                     found = True
                     counted_skills[selected_skill] += 1
@@ -185,7 +190,7 @@ class SkillsExtractor:
                 counted_skills[skill] = 1
 
         result_skills = []
-        for skill in sorted(selected_skills, key=lambda x: -counted_skills[x]): 
+        for skill in sorted(selected_skills, key=lambda x: -counted_skills[x]):
             amount = counted_skills[skill]
             if len(result_skills) >= max_skills or amount < min_frequency:
                 break

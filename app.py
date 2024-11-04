@@ -8,12 +8,15 @@ License: MIT License
 """
 
 import gradio as gr
+import os
+
+os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Importing necessary components for the Gradio app
 from app.config import CONFIG_NAME, config_data, load_tab_creators
 from app.event_handlers.event_handlers import setup_app_event_handlers
 import app.tabs
-from app.elements.elements import get_header_html
+from app.header import HEADER
 
 gr.set_static_paths(
     paths=[
@@ -28,8 +31,7 @@ def create_gradio_app() -> gr.Blocks:
         theme=gr.themes.Default(font=["HSESans"]),
         css_paths=config_data.AppSettings_CSS_PATH,
     ) as gradio_app:
-
-        gr.HTML(get_header_html())
+        gr.HTML(HEADER)
 
         tab_results = {}
 
