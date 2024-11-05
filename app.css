@@ -180,6 +180,7 @@ div.logo > img {
     border: 1px solid #363636 !important;
     color: #363636;
     font-family: 'HSESans', sans-serif !important;
+    box-shadow: none !important;
 }
 
 .user-info input:focus {
@@ -187,6 +188,7 @@ div.logo > img {
     border: 1px solid var(--main-color) !important;
     color: #363636;
     font-family: 'HSESans', sans-serif !important;
+    box-shadow: 0 0 0 1px var(--main-color), 0px 2px 4px 0px rgba(0, 0, 0, 0.1) inset !important;
 }
 
 .dropdown-user {
@@ -541,18 +543,32 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 }
 
 .settings-item input {
-    background-color: #fafafa !important;
-    border: 1px solid #363636 !important;
+    background-color: #fafafa;
+    border: 1px solid #363636;
     color: #363636;
     font-family: 'HSESans', sans-serif !important;
 }
 
 .settings-item input:focus {
-    background-color: #fafafa !important;
-    border: 1px solid var(--main-color) !important;
+    background-color: #fafafa;
+    border: 1px solid var(--main-color);
     color: #363636;
     font-family: 'HSESans', sans-serif !important;
+    box-shadow: 0 0 0 1px var(--main-color), 0px 2px 4px 0px rgba(0, 0, 0, 0.1) inset;
 }
+
+.settings-item input:out-of-range {
+    border: 1px solid #ff0000;
+    background-color: #ffe6e6;
+    box-shadow: none;
+}
+
+.settings-item input:focus:out-of-range {
+    border: 1px solid #ff0000;
+    background-color: #ffd6d6;
+    box-shadow: 0 0 0 1px rgba(255, 0, 0, 1), 0px 2px 4px 0px rgba(255, 0, 0, 0.1) inset; /* Красная тень при фокусе вне диапазона */
+}
+
 
 .dropdown-models,
 .dropdown-courses-grades {
