@@ -639,7 +639,6 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
     border-radius: 4px;
     border-color: var(--main-color);
     background-color: #fafafa !important;
-    border-style: solid;
 }
 
 .dropdown-courses-grades .token>span {
