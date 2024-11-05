@@ -272,6 +272,8 @@ def event_handler_generate_response(
         + f"{skills_vacancy}</span></div></div></div>"
     )
 
+    item = 1
+
     for edu_level, subjects in grouped_subjects.items():
         content += (
             f"<div class='edu-group'><span>{edu_level}</span><div class='subject-info'>"
@@ -279,11 +281,16 @@ def event_handler_generate_response(
 
         content += "".join(
             "<div class='info'>"
+            f"<div class='item'>{item}</div>"
             + generate_subject_info(subject_info, edu_level_label, edu_level)
             + generate_skills(subject_info[0], max_skill_words)
             + "</div>"
-            for subject_info, edu_level_label, edu_level in subjects
+            for item, (subject_info, edu_level_label, edu_level) in enumerate(
+                subjects, start=item
+            )
         )
+
+        item += len(subjects)
 
         content += "</div></div>"
 

@@ -435,6 +435,19 @@ div.subject-info > div.info:last-child {
     margin-bottom: 0px;
 }
 
+div.subject-info > div.info > div.item {
+    display: flex;
+    position: absolute;
+    right: 20px;
+    background: var(--main-color);
+    padding: 10px;
+    border-radius: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+}
+
 div.subject-info > div.info > div.info-item:last-child,
 div.subject-info > div.info > div.info-courses-grades:last-child {
     border-bottom: none;
