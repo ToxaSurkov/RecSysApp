@@ -44,6 +44,7 @@ def app_tab():
             type="text",
             show_copy_button=False,
             max_length=config_data.Settings_USER_MAX_LENGTH,
+            elem_classes="user-info",
         )
 
         username = gr.Textbox(
@@ -64,6 +65,7 @@ def app_tab():
             type="text",
             show_copy_button=False,
             max_length=config_data.Settings_USER_MAX_LENGTH,
+            elem_classes="user-info",
         )
 
         dropdown_user = gr.Dropdown(
@@ -155,7 +157,7 @@ def app_tab():
                 scale=1,
                 icon=config_data.Path_APP
                 / config_data.StaticPaths_IMAGES
-                / "message.svg",
+                / "btn_message.svg",
                 visible=False,
                 elem_classes="send_message",
             )
@@ -176,63 +178,90 @@ def app_tab():
 
 
 def settings_app_tab():
-    with gr.Row(
+    with gr.Column(
         visible=True,
         render=True,
         variant="default",
         elem_classes="settings-container",
     ):
-        top_subjects = gr.Number(
-            value=config_data.Settings_TOP_SUBJECTS,
-            label=config_data.Labels_TOP_SUBJECTS,
-            info=config_data.InformationMessages_FROM_TO.format(
-                config_data.Settings_TOP_SUBJECTS_RANGE[0],
-                config_data.Settings_TOP_SUBJECTS_RANGE[1],
-            ),
-            show_label=True,
-            container=True,
-            scale=1,
-            interactive=True,
+        with gr.Row(
             visible=True,
             render=True,
-            minimum=config_data.Settings_TOP_SUBJECTS_RANGE[0],
-            maximum=config_data.Settings_TOP_SUBJECTS_RANGE[1],
-            step=1,
-        )
+            variant="default",
+            elem_classes="row-1-container",
+        ):
+            top_subjects = gr.Number(
+                value=config_data.Settings_TOP_SUBJECTS,
+                label=config_data.Labels_TOP_SUBJECTS,
+                info=config_data.InformationMessages_FROM_TO.format(
+                    config_data.Settings_TOP_SUBJECTS_RANGE[0],
+                    config_data.Settings_TOP_SUBJECTS_RANGE[1],
+                ),
+                show_label=True,
+                container=True,
+                scale=1,
+                interactive=True,
+                visible=True,
+                render=True,
+                minimum=config_data.Settings_TOP_SUBJECTS_RANGE[0],
+                maximum=config_data.Settings_TOP_SUBJECTS_RANGE[1],
+                step=1,
+                elem_classes="settings-item",
+            )
 
-        max_skill_words = gr.Number(
-            value=config_data.Settings_MAX_SKILL_WORDS,
-            label=config_data.Labels_MAX_SKILL_WORDS,
-            info=config_data.InformationMessages_FROM_TO.format(
-                config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
-                config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
-            ),
-            show_label=True,
-            container=True,
-            scale=1,
-            interactive=True,
+            max_skill_words = gr.Number(
+                value=config_data.Settings_MAX_SKILL_WORDS,
+                label=config_data.Labels_MAX_SKILL_WORDS,
+                info=config_data.InformationMessages_FROM_TO.format(
+                    config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
+                    config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
+                ),
+                show_label=True,
+                container=True,
+                scale=1,
+                interactive=True,
+                visible=True,
+                render=True,
+                minimum=config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
+                maximum=config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
+                step=1,
+                elem_classes="settings-item",
+            )
+
+            dropdown_models = gr.Dropdown(
+                choices=config_data.Models_SBERT,
+                value=config_data.Models_SBERT[0],
+                multiselect=False,
+                allow_custom_value=False,
+                label=config_data.Labels_MODEL,
+                info=config_data.InformationMessages_MODEL,
+                show_label=True,
+                interactive=True,
+                visible=True,
+                render=True,
+                elem_classes="dropdown-models",
+            )
+        with gr.Row(
             visible=True,
             render=True,
-            minimum=config_data.Settings_MAX_SKILL_WORDS_RANGE[0],
-            maximum=config_data.Settings_MAX_SKILL_WORDS_RANGE[1],
-            step=1,
-        )
+            variant="default",
+            elem_classes="row-2-container",
+        ):
+            dropdown_courses_grades = gr.Dropdown(
+                choices=config_data.DataframeHeaders_COURSES_GRADES[::2],
+                value=config_data.DataframeHeaders_COURSES_GRADES[0],
+                multiselect=True,
+                allow_custom_value=False,
+                label=config_data.Labels_COURSES_GRADES,
+                info=config_data.InformationMessages_COURSES_GRADES,
+                show_label=True,
+                interactive=True,
+                visible=True,
+                render=True,
+                elem_classes="dropdown-courses-grades",
+            )
 
-        dropdown_models = gr.Dropdown(
-            choices=config_data.Models_SBERT_PUDS,
-            value=config_data.Models_SBERT_PUDS[0],
-            multiselect=False,
-            allow_custom_value=False,
-            label=config_data.Labels_MODEL,
-            info=config_data.InformationMessages_MODEL,
-            show_label=True,
-            interactive=True,
-            visible=True,
-            render=True,
-            elem_classes="dropdown-models",
-        )
-
-    return (top_subjects, max_skill_words, dropdown_models)
+    return (top_subjects, max_skill_words, dropdown_models, dropdown_courses_grades)
 
 
 # def about_app_tab():

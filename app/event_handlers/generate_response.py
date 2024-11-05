@@ -13,13 +13,24 @@ from gradio import ChatMessage
 
 # Importing necessary components for the Gradio app
 from app.config import config_data
-from app.data_init import df_puds_skills, model_manager_sbert, skills_extractor
-from app.cosine_similarity_init import cosine_similarity
-from app.data_utils import get_embeddings, filter_unique_items, sort_subjects
+from app.data_init import (
+    cosine_similarity,
+    df_puds_skills,
+    df_courses_grades,
+    model_manager_sbert,
+    skills_extractor,
+)
+from app.data_utils import (
+    get_embeddings,
+    filter_unique_items,
+    sort_subjects,
+    round_if_number,
+    format_grade,
+)
 
 
-def create_html_block(label: str, value: str) -> str:
-    return f"<div class='info-item'><span class='label'>{label}</span> <span class='value'>{value}</span></div>"
+def create_html_block(label: str, value: str, class_name: str = "info-item") -> str:
+    return f"<div class={class_name}><span class='label'>{label}</span> <span class='value'>{value}</span></div>"
 
 
 def determine_edu_level(subject_info: list[str]) -> tuple[str, str]:
@@ -35,6 +46,42 @@ def determine_edu_level(subject_info: list[str]) -> tuple[str, str]:
         edu_level = subject_info[6]
 
     return edu_level_label, edu_level
+
+
+def generate_courses_grades(subject_info: list[str]) -> str:
+    courses_grades = ""
+    has_metrics = False
+
+    for i, index in enumerate(list(range(11, 21))):
+        grade_value = subject_info[index]
+
+        match grade_value:
+            case "-":
+                continue
+            case None | "":
+                has_metrics = True
+                courses_grades += (
+                    "<div class='info-courses-grades-error'><span class='label'>"
+                    f"{config_data.InformationMessages_COURSES_GRADES_DATA[0]} "
+                    f"{config_data.InformationMessages_COURSES_GRADES_NOT_DEFINED[i]} "
+                    f"{config_data.InformationMessages_COURSES_GRADES_DATA[1]}"
+                    "</span></div>"
+                )
+            case _:
+                has_metrics = True
+                courses_grades += create_html_block(
+                    f"{config_data.DataframeHeaders_COURSES_GRADES[i]}:",
+                    format_grade(grade_value),
+                    "info-courses-grades",
+                )
+
+    if has_metrics:
+        courses_grades = (
+            f"<div class='info-item'><span class='label'>{config_data.HtmlContent_COURSES_GRADES}</span></div>"
+            f"{courses_grades}"
+        )
+
+    return courses_grades
 
 
 def generate_subject_info(
@@ -70,6 +117,7 @@ def generate_subject_info(
             number_education_block,
             create_html_block(config_data.HtmlContent_AUDIENCE_LABEL, subject_info[8]),
             create_html_block(config_data.HtmlContent_FORMAT_LABEL, subject_info[9]),
+            generate_courses_grades(subject_info),
         ]
     )
 
@@ -119,6 +167,7 @@ def event_handler_generate_response(
     chat_history: list[ChatMessage],
     top_subjects: int,
     max_skill_words: int,
+    dropdown_courses_grades: list[str],
 ) -> tuple[gr.Textbox, list[ChatMessage]]:
     message = message.strip()
 
@@ -180,6 +229,27 @@ def event_handler_generate_response(
     for subject in subjects_sorted.split(";"):
         subject_info = list(map(str.strip, subject.split("|")))
 
+        for grade, mean_grade in zip(
+            config_data.DataframeHeaders_COURSES_GRADES[::2],
+            config_data.DataframeHeaders_COURSES_GRADES[1::2],
+        ):
+            if grade not in dropdown_courses_grades:
+                subject_info.extend(["-", "-"])
+                continue
+
+            course_grades = df_courses_grades.filter(
+                pl.col(config_data.DataframeHeaders_RU_ID) == int(subject_info[0])
+            )[0]
+
+            curr_grade = round_if_number(course_grades[grade][0])
+            mean_curr_grade = (
+                round_if_number(course_grades[mean_grade][0])
+                if mean_grade in course_grades.columns
+                else "-"
+            )
+
+            subject_info.extend([curr_grade, mean_curr_grade])
+
         edu_level_label, edu_level = determine_edu_level(subject_info)
 
         if edu_level not in grouped_subjects:
@@ -189,8 +259,6 @@ def event_handler_generate_response(
     content = ""
 
     vacancy_skills = skills_extractor.key_skills_for_profession(message)
-
-    # key_skills = skills_extractor.key_skills_for_profession(message)
 
     skills_vacancy = "".join(
         [f"<span class='skill'>{skill}</span>" for skill in vacancy_skills]

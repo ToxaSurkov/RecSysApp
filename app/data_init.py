@@ -20,16 +20,15 @@ df_puds_skills = load_parquet(
     subset=config_data.DataframeHeaders_RU_ID,
 )
 
-model_manager_sbert = SbertModelManager()
-model_manager_sbert.change_model(config_data.Models_SBERT_PUDS[0])
-
-start_time = time.time()
-
-skills_extractor = SkillsExtractor(
-    path_to_vacancies_info=config_data.Path_APP / config_data.StaticPaths_VACANCY_CSV
+df_courses_grades = load_parquet(
+    path=config_data.Path_APP / config_data.StaticPaths_COURSES_GRADES,
+    drop_duplicates=True,
+    subset=None,
 )
 
-end_time = time.time()
-elapsed_time = end_time - start_time
+model_manager_sbert = SbertModelManager()
+model_manager_sbert.change_model(config_data.Models_SBERT[0])
 
-print(f"Время выполнения: {elapsed_time:.6f} секунд")
+skills_extractor = SkillsExtractor(
+    path_to_vacancies_info=config_data.Path_APP / config_data.StaticPaths_VACANCY
+)
