@@ -30,6 +30,7 @@ def setup_app_event_handlers(
     top_subjects,
     max_skill_words,
     dropdown_models,
+    dropdown_courses_grades,
 ):
     gr.on(
         triggers=[surname.change, username.change, dropdown_user.change],
@@ -76,6 +77,7 @@ def setup_app_event_handlers(
             chatbot,
             top_subjects,
             max_skill_words,
+            dropdown_courses_grades,
         ],
         outputs=[message, chatbot],
         queue=True,
