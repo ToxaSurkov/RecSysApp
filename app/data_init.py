@@ -5,7 +5,7 @@ Description: Initial data loading.
 License: MIT License
 """
 
-import time
+import torch
 
 # Importing necessary components for the Gradio app
 from app.config import config_data
@@ -13,6 +13,8 @@ from app.data_utils import load_parquet
 from app.load_models import SbertModelManager
 from app.load_vacancy_models import SkillsExtractor
 
+
+cosine_similarity = torch.nn.CosineSimilarity()
 
 df_puds_skills = load_parquet(
     path=config_data.Path_APP / config_data.StaticPaths_PUDS_SKILLS,

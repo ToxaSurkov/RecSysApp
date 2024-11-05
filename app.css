@@ -566,9 +566,8 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 .settings-item input:focus:out-of-range {
     border: 1px solid #ff0000;
     background-color: #ffd6d6;
-    box-shadow: 0 0 0 1px rgba(255, 0, 0, 1), 0px 2px 4px 0px rgba(255, 0, 0, 0.1) inset; /* Красная тень при фокусе вне диапазона */
+    box-shadow: 0 0 0 1px rgba(255, 0, 0, 1), 0px 2px 4px 0px rgba(255, 0, 0, 0.1) inset;
 }
-
 
 .dropdown-models,
 .dropdown-courses-grades {
