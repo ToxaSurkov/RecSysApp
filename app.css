@@ -189,6 +189,10 @@ div.logo > img {
     font-family: 'HSESans', sans-serif !important;
 }
 
+input:out-of-range{
+    border: (--input-border-width) solid var(--error-border-color) !important;
+}
+
 .dropdown-user {
     background-color: #fafafa !important;
 }
