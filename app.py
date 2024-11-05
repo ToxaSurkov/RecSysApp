@@ -57,7 +57,7 @@ def create_gradio_app() -> gr.Blocks:
 
 
 if __name__ == "__main__":
-    create_gradio_app().queue(api_open=False).launch(
+    create_gradio_app().queue(api_open=False).launch(server_name="0.0.0.0",
         favicon_path=config_data.Path_APP
         / config_data.StaticPaths_IMAGES
         / "favicon.ico",
