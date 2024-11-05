@@ -128,7 +128,6 @@ def extract_embeddings(
     limit: Optional[int] = None,
     force_reload: bool = False,
 ) -> tuple[torch.Tensor, pl.DataFrame]:
-    embeddings_col = "embeddings"
     names_col = "names"
     subject_info_col = config_data.DataframeHeaders_SUBJECTS_FULL_INFO
     subject_name_col = config_data.DataframeHeaders_RU_SUBJECTS[0]
@@ -146,14 +145,14 @@ def extract_embeddings(
     )
 
     def load_existing_data() -> tuple[torch.Tensor, pl.DataFrame]:
-        embeddings = load_file(embeddings_path)[embeddings_col]
+        embeddings = load_file(embeddings_path)[config_data.Models_EMBEDDINGS_NAME]
         names = pl.read_parquet(names_path)
 
         return embeddings, names
 
     def save_embeddings(embeddings: torch.Tensor, names: list[str]) -> None:
         if embeddings.size(0) > 0:
-            save_file({embeddings_col: embeddings}, embeddings_path)
+            save_file({config_data.Models_EMBEDDINGS_NAME: embeddings}, embeddings_path)
         if names:
             pl.DataFrame({names_col: names}).write_parquet(names_path)
 

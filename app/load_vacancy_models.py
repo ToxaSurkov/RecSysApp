@@ -70,6 +70,7 @@ class VacancyFinder:
         for title in titles:
             self.titles[title] = self.embedding_extractor.extract(title)
             self.vacancy_stats_by_title[title] = []
+
             for _, row in initial_df[initial_df.parent == title].iterrows():
                 name = row["name"]
                 key_skills = row["key_skills"]

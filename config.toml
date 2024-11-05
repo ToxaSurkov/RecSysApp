@@ -154,8 +154,8 @@ PRIORITY = [
 [Models]
 TASK = "text-matching"
 SBERT = [
-    "paraphrase-multilingual-MiniLM-L12-v2",
     "jina-embeddings-v3",
+    "paraphrase-multilingual-MiniLM-L12-v2",
 ]
 SBERT_VACANCY = [
     "LaBSE-en-ru"
