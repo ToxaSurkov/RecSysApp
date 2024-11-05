@@ -8,8 +8,9 @@ License: MIT License
 import re
 import torch
 import polars as pl
+from decimal import Decimal, ROUND_HALF_UP
 from pathlib import Path, PosixPath
-from typing import Union, Optional
+from typing import Any, Union, Optional
 
 from sentence_transformers import SentenceTransformer
 from safetensors.torch import save_file, load_file
@@ -300,3 +301,19 @@ def sort_subjects(subjects: list[str]) -> str:
             )
 
     return "; ".join(result)
+
+
+def round_if_number(value: Any, decimal_places: int = 2) -> Union[Decimal, None]:
+    if isinstance(value, (int, float)):
+        return Decimal(str(value)).quantize(
+            Decimal(f"1.{'0' * decimal_places}"), rounding=ROUND_HALF_UP
+        )
+    return None
+
+
+def format_grade(value: Union[int, float, Decimal]) -> str:
+    return (
+        re.sub(r",0+$", "", str(value).replace(".", ","))
+        if isinstance(value, (int, float, Decimal))
+        else str(value)
+    )

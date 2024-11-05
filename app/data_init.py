@@ -22,6 +22,12 @@ df_puds_skills = load_parquet(
     subset=config_data.DataframeHeaders_RU_ID,
 )
 
+df_courses_grades = load_parquet(
+    path=config_data.Path_APP / config_data.StaticPaths_COURSES_GRADES,
+    drop_duplicates=True,
+    subset=None,
+)
+
 model_manager_sbert = SbertModelManager()
 model_manager_sbert.change_model(config_data.Models_SBERT[0])
 
