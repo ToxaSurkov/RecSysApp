@@ -649,6 +649,11 @@ div.subject-info > div.info > div.info-skills > span.value > span.skill:last-chi
 .dropdown-courses-grades .token-remove {
     background-color: var(--main-color);
 }
+
+.dropdown-courses-grades .token-remove > svg {
+    fill: #fafafa !important;
+}
+
 .requirements-dataframe .table-wrap {
     font-family: 'HSESans', sans-serif !important;
     border: none !important;
