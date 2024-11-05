@@ -28,6 +28,7 @@ gr.set_static_paths(
 
 def create_gradio_app() -> gr.Blocks:
     with gr.Blocks(
+        title=config_data.AppSettings_TITLE,
         theme=gr.themes.Default(font=["HSESans"]),
         css_paths=config_data.AppSettings_CSS_PATH,
     ) as gradio_app:
@@ -56,7 +57,10 @@ def create_gradio_app() -> gr.Blocks:
 
 
 if __name__ == "__main__":
-    create_gradio_app().queue(api_open=False).launch(server_name="0.0.0.0",
+    create_gradio_app().queue(api_open=False).launch(
+        favicon_path=config_data.Path_APP
+        / config_data.StaticPaths_IMAGES
+        / "favicon.ico",
         share=False,
         allowed_paths=[
             "fonts/HSE_Sans/HSESans-Regular.otf",
