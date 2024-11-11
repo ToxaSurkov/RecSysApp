@@ -57,7 +57,7 @@ def run_server():
     global server
     config = uvicorn.Config(
         app,
-        host=config_data.AppSettings_SERVER_NAME,
+        host="127.0.0.1",
         port=config_data.AppSettings_SERVER_PORT,
         log_level="info",
     )
