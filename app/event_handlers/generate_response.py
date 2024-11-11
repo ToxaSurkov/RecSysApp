@@ -1,6 +1,6 @@
 """
-File: login.py
-Author: Dmitry Ryumin
+File: generate_response.py
+Author: Dmitry Ryumin and Alexandr Axyonov
 Description: Event handler for Gradio app to generate response.
 License: MIT License
 """
@@ -13,6 +13,7 @@ from gradio import ChatMessage
 
 # Importing necessary components for the Gradio app
 from app.config import config_data
+
 from app.data_init import (
     cosine_similarity,
     df_puds_skills,
@@ -31,6 +32,19 @@ from app.data_utils import (
 
 def create_html_block(label: str, value: str, class_name: str = "info-item") -> str:
     return f"<div class={class_name}><span class='label'>{label}</span> <span class='value'>{value}</span></div>"
+
+
+def create_html_range(
+    label: str, subject_id: str, class_name: str = "subject_relevance"
+) -> str:
+    return (
+        ""
+        if not config_data.AppSettings_QUALITY
+        else "<div class='range'>"
+        f"<label for='{class_name}_{subject_id}'>{label}</label>"
+        f"<div class='{class_name}' id='{class_name}_{subject_id}'></div>"
+        "</div>"
+    )
 
 
 def determine_edu_level(subject_info: list[str]) -> tuple[str, str]:
@@ -104,6 +118,11 @@ def generate_subject_info(
 
     return "".join(
         [
+            create_html_range(
+                config_data.HtmlContent_SUBJECT_RELEVANCE,
+                subject_info[0],
+                "subject_relevance",
+            ),
             create_html_block(config_data.HtmlContent_SUBJECT_LABEL, subject_info[1]),
             create_html_block(
                 config_data.HtmlContent_ID_SUBJECT_LABEL, subject_info[0]
@@ -148,7 +167,7 @@ def generate_skills(
             [f"<span class='skill'>{skill}</span>" for skill in skills]
         )
         return (
-            "<div class='info-skills'><span class='label'>"
+            f"<div class='info-skills{"-static" if not config_data.AppSettings_QUALITY else ""}'><span class='label'>"
             + config_data.HtmlContent_SKILLS_LABEL
             + "</span> <span class='value'>"
             + f"{skills_content}</span></div>"
@@ -168,11 +187,38 @@ def event_handler_generate_response(
     top_subjects: int,
     max_skill_words: int,
     dropdown_courses_grades: list[str],
-) -> tuple[gr.Textbox, list[ChatMessage]]:
+) -> tuple[
+    gr.Row,
+    gr.Textbox,
+    gr.Button,
+    list[ChatMessage],
+    gr.Column,
+    gr.Dropdown,
+    gr.HTML,
+    gr.Textbox,
+    gr.Column,
+    gr.Button,
+]:
     message = message.strip()
 
     if not message:
-        return (gr.Textbox(value=None), chat_history)
+        return (
+            gr.Row(visible=True),
+            gr.Textbox(value=None),
+            gr.Button(visible=True),
+            chat_history,
+            gr.Column(visible=False),
+            gr.Dropdown(interactive=False, visible=False),
+            gr.HTML(visible=False),
+            gr.Textbox(value=None, visible=False),
+            gr.Column(visible=False),
+            gr.Button(visible=False, interactive=False),
+        )
+
+    if config_data.AppSettings_QUALITY:
+        top_subjects = config_data.Settings_TOP_SUBJECTS_QUALITY
+        max_skill_words = config_data.Settings_MAX_SKILL_WORDS
+        dropdown_courses_grades = [config_data.DataframeHeaders_COURSES_GRADES[0]]
 
     vacancy_embedding = get_embeddings(message, model_manager_sbert.get_current_model())
 
@@ -265,8 +311,8 @@ def event_handler_generate_response(
     )
 
     content += (
-        "<div class='subject-info'><div class='info'>"
-        "<div class='info-skills'><span class='label'>"
+        f"<div class='subject-info{"-static" if not config_data.AppSettings_QUALITY else ""}'>"
+        "<div class='info'><div class='info-skills'><span class='label'>"
         + config_data.HtmlContent_VACANCY_LABEL
         + "</span> <span class='value'>"
         + f"{skills_vacancy}</span></div></div></div>"
@@ -297,4 +343,21 @@ def event_handler_generate_response(
     chat_history.append(ChatMessage(role="user", content=message))
     chat_history.append(ChatMessage(role="assistant", content=content))
 
-    return (gr.Textbox(value=None), chat_history)
+    return (
+        gr.Row(visible=not config_data.AppSettings_QUALITY),
+        gr.Textbox(value=None, visible=not config_data.AppSettings_QUALITY),
+        gr.Button(visible=not config_data.AppSettings_QUALITY),
+        chat_history,
+        gr.Column(visible=config_data.AppSettings_QUALITY),
+        gr.Dropdown(
+            visible=config_data.AppSettings_QUALITY,
+            interactive=config_data.AppSettings_QUALITY,
+        ),
+        gr.HTML(visible=config_data.AppSettings_QUALITY),
+        gr.Textbox(visible=config_data.AppSettings_QUALITY),
+        gr.Column(visible=config_data.AppSettings_QUALITY),
+        gr.Button(
+            visible=config_data.AppSettings_QUALITY,
+            interactive=config_data.AppSettings_QUALITY,
+        ),
+    )

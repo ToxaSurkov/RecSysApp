@@ -1,6 +1,6 @@
 """
 File: load_models.py
-Author: Dmitry Ryumin
+Author: Dmitry Ryumin and Alexandr Axyonov
 Description: Classes for loading models and updating embeddings.
 License: MIT License
 """
@@ -152,7 +152,7 @@ class SkillsExtractor:
         max_skills=100,
         min_frequency=3,
         nearest_vacancies=50,
-        nearest_titles=5,
+        nearest_titles=100,
         filter_near=True,
     ):
         all_key_skills = []
