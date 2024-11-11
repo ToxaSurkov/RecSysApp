@@ -24,8 +24,9 @@ app.add_middleware(
 )
 
 
-@app.post("api/submit")
-async def receive_data(request: Request):
+#@app.post("api/submit")
+#async 
+def receive_data(request: Request):
     try:
         data = await request.json()
         # print("Полученные данные:", data)
@@ -48,6 +49,10 @@ async def receive_data(request: Request):
             "status": "error",
             "error": str(e),
         }
+
+@app.post("/api/submit")
+async def submit():
+    return {"status": "success", "message": "Test response"}
 
 
 server = None
