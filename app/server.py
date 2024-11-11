@@ -25,30 +25,29 @@ app.add_middleware(
 
 
 #@app.post("api/submit")
-#async 
-def receive_data_2(request: Request):
-    try:
-        data = await request.json()
+#async def receive_data_2(request: Request):
+#    try:
+#        data = await request.json()
         # print("Полученные данные:", data)
 
         # Сохранение данных с использованием модуля db_handler
-        if save_data(data):
-            return {
-                "message": "Данные успешно получены и сохранены",
-                "status": "success",
-            }
-        else:
-            return {
-                "message": "Ошибка при сохранении данных",
-                "status": "error",
-            }
-    except Exception as e:
+#        if save_data(data):
+#            return {
+#                "message": "Данные успешно получены и сохранены",
+#                "status": "success",
+#            }
+#        else:
+#            return {
+#                "message": "Ошибка при сохранении данных",
+#                "status": "error",
+#            }
+#    except Exception as e:
         # Обработка исключений и возврат ошибки
-        return {
-            "message": "Произошла ошибка при обработке данных",
-            "status": "error",
-            "error": str(e),
-        }
+#        return {
+#            "message": "Произошла ошибка при обработке данных",
+#            "status": "error",
+#            "error": str(e),
+#        }
 
 @app.post("/api/submit")
 async def receive_data():
