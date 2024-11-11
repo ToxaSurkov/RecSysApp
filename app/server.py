@@ -50,7 +50,7 @@ app.add_middleware(
 #        }
 
 @app.post("/api/submit")
-async def receive_data():
+async def receive_data(request: Request):
     return {"status": "success", "message": "Test response"}
 
 
