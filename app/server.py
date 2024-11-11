@@ -24,7 +24,7 @@ app.add_middleware(
 )
 
 
-@app.post("/api/submit")
+@app.post("/")
 async def receive_data(request: Request):
     try:
         data = await request.json()
