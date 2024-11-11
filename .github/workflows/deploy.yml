@@ -47,6 +47,6 @@ jobs:
             sudo docker stop recsys-app
             sudo docker rm recsys-app
           fi
-          sudo docker run -d --gpus all -v /home/${{ secrets.REMOTE_USER }}/recsys/data:/app/data -v /home/${{ secrets.REMOTE_USER }}/recsys/models:/app/models -v /home/${{ secrets.REMOTE_USER }}/recsys/db:/app/db --name recsys-app -p 7860:7860 -p 8000:8000 recsys-app-new
+          sudo docker run -d --gpus all -v /home/${{ secrets.REMOTE_USER }}/recsys/data:/app/data -v /home/${{ secrets.REMOTE_USER }}/recsys/models:/app/models -v /home/${{ secrets.REMOTE_USER }}/recsys/db:/app/db --name recsys-app -p 7860:7860 -p 8171:8171 recsys-app-new
           sudo docker system prune -f
           EOF
