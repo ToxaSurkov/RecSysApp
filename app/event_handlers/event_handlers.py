@@ -11,6 +11,7 @@ import gradio as gr
 from app.event_handlers.account import event_handler_account
 from app.event_handlers.auth import event_handler_auth
 from app.event_handlers.login import event_handler_login
+from app.event_handlers.instruction import event_handler_instruction
 from app.event_handlers.generate_response import event_handler_generate_response
 from app.event_handlers.message import event_handler_message
 from app.event_handlers.evaluate import event_handler_evaluate
@@ -21,12 +22,16 @@ def setup_app_event_handlers(
     account,
     step_1,
     userid,
-    surname,
     username,
-    dropdown_user,
+    group_number,
+    dropdown_role,
     auth_row,
     auth,
     noti_auth,
+    instruction_column,
+    instruction,
+    instruction_text,
+    start_evaluate,
     step_2,
     chatbot_column,
     chatbot,
@@ -46,21 +51,21 @@ def setup_app_event_handlers(
 ):
     account.click(
         fn=event_handler_account,
-        inputs=[account, surname, username],
+        inputs=[account, username],
         outputs=[
             account,
-            surname,
             username,
-            dropdown_user,
+            group_number,
+            dropdown_role,
             step_2,
         ],
         queue=True,
     )
 
     gr.on(
-        triggers=[surname.change, username.change, dropdown_user.change],
+        triggers=[username.change, group_number.change, dropdown_role.change],
         fn=event_handler_auth,
-        inputs=[surname, username, dropdown_user],
+        inputs=[username, group_number, dropdown_role],
         outputs=[
             auth,
             noti_auth,
@@ -70,17 +75,39 @@ def setup_app_event_handlers(
 
     auth.click(
         fn=event_handler_login,
-        inputs=[surname, username, dropdown_user],
+        inputs=[username, group_number, dropdown_role],
         outputs=[
             account,
             step_1,
             userid,
-            surname,
             username,
-            dropdown_user,
+            group_number,
+            dropdown_role,
             auth_row,
             auth,
             noti_auth,
+            instruction_column,
+            instruction,
+            instruction_text,
+            start_evaluate,
+            step_2,
+            message_row,
+            chatbot_column,
+            chatbot,
+            message,
+            send_message,
+        ],
+        queue=True,
+    )
+
+    start_evaluate.click(
+        fn=event_handler_instruction,
+        inputs=[],
+        outputs=[
+            instruction_column,
+            instruction,
+            instruction_text,
+            start_evaluate,
             step_2,
             message_row,
             chatbot_column,

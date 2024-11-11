@@ -299,7 +299,7 @@ function handleButtonClick() {
     }
 
     // Извлечение данных пользователя
-    result.user_id = document.querySelector('.block.user-id input')?.value.trim() || NO_DATA;
+    result.user_id = document.querySelector('.block.user-id input')?.value.trim() || NO_DATA
 
     // Извлечение данных пользователя
     result.user_data = extractUserInputData('.user-container .form')

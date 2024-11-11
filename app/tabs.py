@@ -9,7 +9,8 @@ import gradio as gr
 
 # Importing necessary components for the Gradio app
 from app.description import DESCRIPTION
-from app.description_steps import STEP_1, STEP_2
+from app.instruction import INSTRUCTION_TEXT
+from app.description_steps import STEP_1, STEP_2, INSTRUCTION
 from app.html_components import ADD_RANGE
 from app.config import config_data
 from app.requirements_app import read_requirements
@@ -62,50 +63,13 @@ def app_tab():
             elem_classes="user-id",
         )
 
-        surname = gr.Textbox(
-            value=None,
-            lines=1,
-            max_lines=1,
-            placeholder=config_data.OtherMessages_IMPORTANT,
-            label=config_data.Labels_SURNAME,
-            info=(
-                config_data.InformationMessages_SURNAME
-                if not config_data.AppSettings_QUALITY
-                else None
-            ),
-            show_label=True,
-            container=True,
-            scale=1,
-            interactive=True,
-            visible=True,
-            autofocus=False,
-            autoscroll=True,
-            render=True,
-            type="text",
-            show_copy_button=False,
-            max_length=config_data.Settings_USER_MAX_LENGTH,
-            elem_classes="user-info",
-        )
-
         username = gr.Textbox(
             value=None,
             lines=1,
             max_lines=1,
-            placeholder=(
-                config_data.OtherMessages_IMPORTANT
-                if not config_data.AppSettings_QUALITY
-                else None
-            ),
-            label=(
-                config_data.Labels_USERNAME
-                if not config_data.AppSettings_QUALITY
-                else config_data.Labels_GROUP_NUMBER
-            ),
-            info=(
-                config_data.InformationMessages_USERNAME
-                if not config_data.AppSettings_QUALITY
-                else None
-            ),
+            placeholder=config_data.OtherMessages_IMPORTANT,
+            label=config_data.Labels_USERNAME,
+            info=None,
             show_label=True,
             container=True,
             scale=1,
@@ -120,25 +84,34 @@ def app_tab():
             elem_classes="user-info",
         )
 
-        dropdown_user = gr.Dropdown(
-            choices=(
-                config_data.Settings_DROPDOWN_USER
-                if not config_data.AppSettings_QUALITY
-                else config_data.Settings_DROPDOWN_ROLE
-            ),
+        group_number = gr.Textbox(
+            value=None,
+            lines=1,
+            max_lines=1,
+            placeholder=None,
+            label=config_data.Labels_GROUP_NUMBER,
+            info=None,
+            show_label=True,
+            container=True,
+            scale=1,
+            interactive=True,
+            visible=True,
+            autofocus=False,
+            autoscroll=True,
+            render=True,
+            type="text",
+            show_copy_button=False,
+            max_length=config_data.Settings_USER_MAX_LENGTH,
+            elem_classes="user-info",
+        )
+
+        dropdown_role = gr.Dropdown(
+            choices=config_data.Settings_DROPDOWN_ROLE,
             value=None,
             multiselect=False,
             allow_custom_value=False,
-            label=(
-                config_data.Labels_USER_AFFILIATION
-                if not config_data.AppSettings_QUALITY
-                else config_data.Labels_USER_ROLE
-            ),
-            info=(
-                config_data.InformationMessages_USER_AFFILIATION
-                if not config_data.AppSettings_QUALITY
-                else None
-            ),
+            label=config_data.Labels_USER_ROLE,
+            info=None,
             show_label=True,
             interactive=True,
             visible=True,
@@ -166,6 +139,29 @@ def app_tab():
         error=True,
         visible=True,
     )
+
+    with gr.Column(
+        visible=False,
+        render=True,
+        variant="default",
+        elem_classes="user-instruction",
+    ) as instruction_column:
+        instruction = gr.HTML(
+            value=INSTRUCTION, visible=False, elem_classes="instruction"
+        )
+
+        instruction_text = gr.HTML(
+            value=INSTRUCTION_TEXT, visible=False, elem_classes="instruction_text"
+        )
+
+        start_evaluate = gr.Button(
+            value=config_data.OtherMessages_START_EVALUATE,
+            interactive=False,
+            scale=1,
+            icon=config_data.Path_APP / config_data.StaticPaths_IMAGES / "ok.ico",
+            visible=False,
+            elem_classes="start_evaluate",
+        )
 
     step_2 = gr.HTML(value=STEP_2, visible=False, elem_classes="step-2")
 
@@ -296,12 +292,16 @@ def app_tab():
         account,
         step_1,
         userid,
-        surname,
         username,
-        dropdown_user,
+        group_number,
+        dropdown_role,
         auth_row,
         auth,
         noti_auth,
+        instruction_column,
+        instruction,
+        instruction_text,
+        start_evaluate,
         step_2,
         chatbot_column,
         chatbot,
