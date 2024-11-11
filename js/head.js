@@ -251,7 +251,7 @@ function extractAdditionalVacancySkills(containerSelector) {
 
 // Функция для отправки данных на сервер
 function sendDataToServer(data) {
-    fetch('https://topicminer.hse.ru/api/submit/', {
+    fetch('https://topicminer.hse.ru/api/submit', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
