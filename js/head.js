@@ -379,7 +379,7 @@ function handleButtonClick() {
     result.feedback = document.querySelector('.block.feedback textarea')?.value.trim() || NO_DATA
 
     // Вывод итогового результата
-    // console.log('Полный результат:', JSON.stringify(result, null, 2))
+    console.log('Полный результат:', JSON.stringify(result, null, 2))
 
     // Отправка данных на сервер
     sendDataToServer(result)
