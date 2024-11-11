@@ -1,6 +1,6 @@
 [AppSettings]
 APP_VERSION = "0.0.5"
-SERVER_NAME = "127.0.0.1"
+SERVER_NAME = "0.0.0.0"
 PORT = 7860
 SERVER_PORT = 8000
 TITLE = "RecSys"
