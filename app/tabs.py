@@ -158,7 +158,7 @@ def app_tab():
             value=config_data.OtherMessages_START_EVALUATE,
             interactive=False,
             scale=1,
-            icon=config_data.Path_APP / config_data.StaticPaths_IMAGES / "ok.ico",
+            # icon=config_data.Path_APP / config_data.StaticPaths_IMAGES / "ok.ico",
             visible=False,
             elem_classes="start_evaluate",
         )
@@ -183,6 +183,27 @@ def app_tab():
                 config_data.Path_APP / config_data.StaticPaths_IMAGES / "HSE.svg",
             ),
             elem_classes="chatbot",
+        )
+
+        chatbot_timer = gr.Textbox(
+            value=None,
+            lines=1,
+            max_lines=1,
+            placeholder=None,
+            label=None,
+            info=None,
+            show_label=False,
+            container=False,
+            scale=1,
+            interactive=False,
+            visible=False,
+            autofocus=False,
+            autoscroll=True,
+            render=True,
+            type="text",
+            show_copy_button=False,
+            max_length=None,
+            elem_classes="chatbot-timer",
         )
 
         with gr.Row(
@@ -273,6 +294,20 @@ def app_tab():
             elem_classes="feedback",
         )
 
+    add_subjects_skills = gr.Dropdown(
+        choices=None,
+        value=None,
+        multiselect=True,
+        allow_custom_value=True,
+        label=config_data.Labels_ADD_SUBJECTS_SKILLS,
+        info=None,
+        show_label=True,
+        interactive=False,
+        visible=False,
+        render=True,
+        elem_classes="dropdown-add-subjects-skills",
+    )
+
     with gr.Column(
         visible=False,
         render=True,
@@ -283,7 +318,7 @@ def app_tab():
             value=config_data.OtherMessages_EVALUATE,
             interactive=False,
             scale=1,
-            icon=config_data.Path_APP / config_data.StaticPaths_IMAGES / "evaluate.ico",
+            # icon=config_data.Path_APP / config_data.StaticPaths_IMAGES / "evaluate.ico",
             visible=False,
             elem_classes="send_evaluate",
         )
@@ -305,11 +340,13 @@ def app_tab():
         step_2,
         chatbot_column,
         chatbot,
+        chatbot_timer,
         message_row,
         message,
         send_message,
         add_evals_column,
         add_vacancy_skills,
+        add_subjects_skills,
         add_range,
         feedback,
         evaluate_column,
