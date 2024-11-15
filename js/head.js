@@ -443,7 +443,7 @@ function handleButtonClick(showAlerts = true) {
     }
 
     // Вывод итогового результата
-    // console.log('Полный результат:', JSON.stringify(result, null, 2));
+    console.log('Полный результат:', JSON.stringify(result, null, 2));
 
     // Отправка данных на сервер
     sendDataToServer(result, showAlerts);
@@ -460,7 +460,7 @@ function startTimer(interval) {
             handleButtonClick(showAlerts=false);
         }, interval);
 
-        // console.log(`Интервал для handleButtonClick запущен с интервалом ${interval / 1000} секунд.`);
+        console.log(`Интервал для handleButtonClick запущен с интервалом ${interval / 1000} секунд.`);
     }
 }
 
@@ -469,7 +469,7 @@ function stopTimer() {
     if (intervalId) {
         clearInterval(intervalId);
         intervalId = null;
-        // console.log('Интервал handleButtonClick остановлен.');
+        console.log('Интервал handleButtonClick остановлен.');
     }
 }
 
@@ -482,7 +482,7 @@ const timerButtonObserver = new MutationObserver(() => {
             startTimer(30000);
         });
         startTimerButton.setAttribute('data-listener', 'true');
-        // console.log("Обработчик добавлен на кнопку send_message.");
+        console.log("Обработчик добавлен на кнопку send_message.");
     }
 });
 
@@ -497,7 +497,7 @@ const buttonObserver = new MutationObserver(() => {
             stopTimer();
         });
         button.setAttribute('data-listener', 'true');
-        // console.log('Обработчик добавлен на кнопку send_evaluate.');
+        console.log('Обработчик добавлен на кнопку send_evaluate.');
     }
 });
 
@@ -512,7 +512,7 @@ const clearButtonObserver = new MutationObserver(() => {
             stopTimer();
         });
         clearButton.setAttribute('data-listener', 'true');
-        // console.log('Обработчик добавлен на кнопку clearButton.');
+        console.log('Обработчик добавлен на кнопку clearButton.');
     }
 });
 
