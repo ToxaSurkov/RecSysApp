@@ -171,6 +171,27 @@ def app_tab():
         variant="default",
         elem_classes="chatbot-container",
     ) as chatbot_column:
+        chatbotid = gr.Textbox(
+            value=None,
+            lines=1,
+            max_lines=1,
+            placeholder=None,
+            label=None,
+            info=None,
+            show_label=False,
+            container=False,
+            scale=1,
+            interactive=False,
+            visible=False,
+            autofocus=False,
+            autoscroll=True,
+            render=True,
+            type="text",
+            show_copy_button=False,
+            max_length=None,
+            elem_classes="chatbot-id",
+        )
+
         chatbot = gr.Chatbot(
             type="messages",
             label=config_data.Labels_CHATBOT,
@@ -339,6 +360,7 @@ def app_tab():
         start_evaluate,
         step_2,
         chatbot_column,
+        chatbotid,
         chatbot,
         chatbot_timer,
         message_row,
@@ -361,21 +383,6 @@ def settings_app_tab():
         variant="default",
         elem_classes="settings-container",
     ):
-        type_recommendation = (
-            gr.Radio(
-                choices=config_data.Settings_TYPE_RECOMMENDATION,
-                value=config_data.Settings_TYPE_RECOMMENDATION[0],
-                label=config_data.Labels_TYPE_RECOMMENDATION,
-                info=None,
-                show_label=True,
-                container=True,
-                interactive=True,
-                visible=True,
-                render=True,
-                elem_classes="settings-type-recommendation",
-            ),
-        )
-
         with gr.Row(
             visible=True,
             render=True,
@@ -457,13 +464,7 @@ def settings_app_tab():
                 elem_classes="dropdown-courses-grades",
             )
 
-    return (
-        type_recommendation,
-        top_subjects,
-        max_skill_words,
-        dropdown_models,
-        dropdown_courses_grades,
-    )
+    return (top_subjects, max_skill_words, dropdown_models, dropdown_courses_grades)
 
 
 # def about_app_tab():
