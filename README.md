@@ -11,7 +11,7 @@ app_port: 7860
 header: default
 pinned: true
 license: mit
-short_description: EdFitter
+short_description: 
 ---
 
 Check out the configuration reference at <https://huggingface.co/docs/hub/spaces-config-reference>
