@@ -1,5 +1,5 @@
 ---
-title: Recommendation System
+title: EdFitter
 emoji: 🔝
 colorFrom: gray
 colorTo: red
