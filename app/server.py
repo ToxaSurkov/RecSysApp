@@ -28,7 +28,7 @@ app.add_middleware(
 async def receive_data(request: Request):
     try:
         data = await request.json()
-        print("Полученные данные:", data)
+        # print("Полученные данные:", data)
 
         # Сохранение данных с использованием модуля db_handler
         if save_data(data):
@@ -48,10 +48,6 @@ async def receive_data(request: Request):
             "status": "error",
             "error": str(e),
         }
-
-#@app.post("/api/submit")
-#async def receive_data(request: Request):
-#    return {"status": "success", "message": "Test response"}
 
 
 server = None
