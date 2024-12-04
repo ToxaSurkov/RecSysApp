@@ -14,4 +14,4 @@ license: mit
 short_description: 
 ---
 
-Check out the configuration reference at <https://huggingface.co/docs/hub/spaces-config-reference>
+Check out the configuration reference here <https://huggingface.co/docs/hub/spaces-config-reference>
