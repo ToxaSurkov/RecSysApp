@@ -12,7 +12,7 @@ EdFitter is a Gradio-based application that guides learners and academic staff i
 ## Dataset Information
 
 
-The datasets required by EdFitter combine HeadHunter (HH) job descriptions with internal course information from National Research University Higher School of Economics (HSE). HH vacancy data can be found here: https://disk.yandex.ru/d/9_dinpnWHeUP-w. HSE internal data about all University courses is private and one needs to adapt the interface to their specific data and calculate similarity scores. During preparation, HTML artefacts and duplicate records are removed, text is normalised, and TF-IDF plus Sentence-BERT similarity scores are computed to link jobs with relevant courses. These derived links power the recommendation interface.
+The datasets required by EdFitter combine HeadHunter (HH) job descriptions with internal course information from National Research University Higher School of Economics (HSE). HH vacancy data can be found here: https://zenodo.org/records/19615543. During preparation, HTML artefacts and duplicate records are removed, text is normalised, and TF-IDF plus Sentence-BERT similarity scores are computed to link jobs with relevant courses. These derived links power the recommendation interface.
 
 
 
